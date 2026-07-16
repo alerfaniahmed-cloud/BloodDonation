@@ -33,6 +33,8 @@ class ProfileActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bloodTypes)
         bloodTypeSpinner.adapter = adapter
 
+        loadExistingProfile(nameInput, phoneInput, cityInput, bloodTypeSpinner, bloodTypes)
+
         saveButton.setOnClickListener {
             val name = nameInput.text.toString().trim()
             val phone = phoneInput.text.toString().trim()
@@ -69,5 +71,29 @@ class ProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
                 }
         }
+    }
+
+    private fun loadExistingProfile(
+        nameInput: EditText,
+        phoneInput: EditText,
+        cityInput: EditText,
+        bloodTypeSpinner: Spinner,
+        bloodTypes: Array<String>
+    ) {
+        val userId = auth.currentUser?.uid ?: return
+        db.collection("users").document(userId)
+            .get()
+            .addOnSuccessListener { doc ->
+                if (doc != null && doc.exists()) {
+                    nameInput.setText(doc.getString("name") ?: "")
+                    phoneInput.setText(doc.getString("phone") ?: "")
+                    cityInput.setText(doc.getString("city") ?: "")
+                    val savedBloodType = doc.getString("bloodType")
+                    val index = bloodTypes.indexOf(savedBloodType)
+                    if (index >= 0) {
+                        bloodTypeSpinner.setSelection(index)
+                    }
+                }
+            }
     }
 }
