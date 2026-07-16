@@ -8,5 +8,6 @@ data class Request(
     var contactPhone: String = "",
     var notes: String = "",
     var requesterName: String = "",
-    var timestamp: Long = 0L
+    var timestamp: Long = 0L,
+    var userId: String = ""
 )
