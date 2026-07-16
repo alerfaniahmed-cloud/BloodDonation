@@ -14,6 +14,7 @@ class CreateRequestActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private var editRequestId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,28 @@ class CreateRequestActivity : AppCompatActivity() {
         val urgencyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, urgencyLevels)
         urgencySpinner.adapter = urgencyAdapter
 
+        editRequestId = intent.getStringExtra("editRequestId")
+
+        if (editRequestId != null) {
+            submitButton.text = "تحديث النداء"
+
+            val editBloodType = intent.getStringExtra("editBloodType")
+            val editUrgency = intent.getStringExtra("editUrgency")
+            val editCity = intent.getStringExtra("editCity")
+            val editPhone = intent.getStringExtra("editPhone")
+            val editNotes = intent.getStringExtra("editNotes")
+
+            val bloodIndex = bloodTypes.indexOf(editBloodType)
+            if (bloodIndex >= 0) bloodTypeSpinner.setSelection(bloodIndex)
+
+            val urgencyIndex = urgencyLevels.indexOf(editUrgency)
+            if (urgencyIndex >= 0) urgencySpinner.setSelection(urgencyIndex)
+
+            cityInput.setText(editCity ?: "")
+            phoneInput.setText(editPhone ?: "")
+            notesInput.setText(editNotes ?: "")
+        }
+
         submitButton.setOnClickListener {
             val city = cityInput.text.toString().trim()
             val phone = phoneInput.text.toString().trim()
@@ -49,32 +72,52 @@ class CreateRequestActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val userId = auth.currentUser?.uid
-            db.collection("users").document(userId ?: "").get()
-                .addOnSuccessListener { userDoc ->
-                    val requesterName = userDoc.getString("name") ?: "مستخدم"
+            if (editRequestId != null) {
+                val updates = hashMapOf<String, Any>(
+                    "bloodType" to bloodType,
+                    "urgency" to urgency,
+                    "city" to city,
+                    "contactPhone" to phone,
+                    "notes" to notes
+                )
 
-                    val request = hashMapOf(
-                        "bloodType" to bloodType,
-                        "urgency" to urgency,
-                        "city" to city,
-                        "contactPhone" to phone,
-                        "notes" to notes,
-                        "requesterName" to requesterName,
-                        "timestamp" to System.currentTimeMillis(),
-                        "userId" to (userId ?: "")
-                    )
+                db.collection("requests").document(editRequestId!!)
+                    .update(updates)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "تم تحديث النداء بنجاح", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+            } else {
+                val userId = auth.currentUser?.uid
+                db.collection("users").document(userId ?: "").get()
+                    .addOnSuccessListener { userDoc ->
+                        val requesterName = userDoc.getString("name") ?: "مستخدم"
 
-                    db.collection("requests")
-                        .add(request)
-                        .addOnSuccessListener {
-                            Toast.makeText(this, "تم نشر النداء بنجاح", Toast.LENGTH_SHORT).show()
-                            finish()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
-                        }
-                }
+                        val request = hashMapOf(
+                            "bloodType" to bloodType,
+                            "urgency" to urgency,
+                            "city" to city,
+                            "contactPhone" to phone,
+                            "notes" to notes,
+                            "requesterName" to requesterName,
+                            "timestamp" to System.currentTimeMillis(),
+                            "userId" to (userId ?: "")
+                        )
+
+                        db.collection("requests")
+                            .add(request)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "تم نشر النداء بنجاح", Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
+                            }
+                    }
+            }
         }
     }
 }
