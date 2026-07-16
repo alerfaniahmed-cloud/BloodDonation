@@ -95,6 +95,7 @@ class CreateRequestActivity : AppCompatActivity() {
                 db.collection("users").document(userId ?: "").get()
                     .addOnSuccessListener { userDoc ->
                         val requesterName = userDoc.getString("name") ?: "مستخدم"
+                        val requesterType = userDoc.getString("accountType") ?: "individual"
 
                         val request = hashMapOf(
                             "bloodType" to bloodType,
@@ -104,7 +105,8 @@ class CreateRequestActivity : AppCompatActivity() {
                             "notes" to notes,
                             "requesterName" to requesterName,
                             "timestamp" to System.currentTimeMillis(),
-                            "userId" to (userId ?: "")
+                            "userId" to (userId ?: ""),
+                            "requesterType" to requesterType
                         )
 
                         db.collection("requests")
