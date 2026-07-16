@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -61,7 +62,7 @@ class ProfileActivity : AppCompatActivity() {
             )
 
             db.collection("users").document(userId)
-                .set(userProfile)
+                .set(userProfile, SetOptions.merge())
                 .addOnSuccessListener {
                     Toast.makeText(this, "تم حفظ بياناتك بنجاح", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MainActivity::class.java))
