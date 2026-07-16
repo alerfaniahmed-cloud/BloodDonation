@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         bloodTypeFilterSpinner = findViewById(R.id.bloodTypeFilterSpinner)
         cityFilterInput = findViewById(R.id.cityFilterInput)
         val addButton = findViewById<Button>(R.id.addButton)
+        val profileButton = findViewById<Button>(R.id.profileButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -64,6 +65,10 @@ class MainActivity : AppCompatActivity() {
 
         addButton.setOnClickListener {
             startActivity(Intent(this, CreateRequestActivity::class.java))
+        }
+
+        profileButton.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 
