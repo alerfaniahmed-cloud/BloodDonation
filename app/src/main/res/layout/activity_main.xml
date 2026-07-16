@@ -30,6 +30,17 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp" />
 
+        <Button
+            android:id="@+id/hospitalsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="المستشفيات"
+            android:minWidth="0dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
+
     </RelativeLayout>
 
     <LinearLayout
