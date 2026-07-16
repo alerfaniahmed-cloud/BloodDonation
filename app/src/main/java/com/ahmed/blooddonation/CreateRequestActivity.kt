@@ -61,7 +61,8 @@ class CreateRequestActivity : AppCompatActivity() {
                         "contactPhone" to phone,
                         "notes" to notes,
                         "requesterName" to requesterName,
-                        "timestamp" to System.currentTimeMillis()
+                        "timestamp" to System.currentTimeMillis(),
+                        "userId" to (userId ?: "")
                     )
 
                     db.collection("requests")
