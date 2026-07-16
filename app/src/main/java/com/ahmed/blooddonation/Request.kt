@@ -9,5 +9,6 @@ data class Request(
     var notes: String = "",
     var requesterName: String = "",
     var timestamp: Long = 0L,
-    var userId: String = ""
+    var userId: String = "",
+    var requesterType: String = "individual"
 )
