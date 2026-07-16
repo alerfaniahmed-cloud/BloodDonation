@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         cityFilterInput = findViewById(R.id.cityFilterInput)
         val addButton = findViewById<Button>(R.id.addButton)
         val profileButton = findViewById<Button>(R.id.profileButton)
+        val hospitalsButton = findViewById<Button>(R.id.hospitalsButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -69,6 +70,10 @@ class MainActivity : AppCompatActivity() {
 
         profileButton.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
+        }
+
+        hospitalsButton.setOnClickListener {
+            startActivity(Intent(this, HospitalsActivity::class.java))
         }
     }
 
