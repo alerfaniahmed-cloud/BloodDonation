@@ -39,7 +39,17 @@ class RequestAdapter(private val requests: List<Request>) :
         holder.bloodType.text = request.bloodType
         holder.urgency.text = request.urgency
         holder.city.text = "المدينة: ${request.city}"
-        holder.requesterName.text = "بواسطة: ${request.requesterName}"
+
+        if (request.requesterType == "hospital") {
+            holder.requesterName.text = "🏥 مستشفى رسمي - ${request.requesterName}"
+            holder.requesterName.setTextColor(android.graphics.Color.parseColor("#C62828"))
+            holder.requesterName.setTypeface(null, android.graphics.Typeface.BOLD)
+        } else {
+            holder.requesterName.text = "بواسطة: ${request.requesterName}"
+            holder.requesterName.setTextColor(android.graphics.Color.DKGRAY)
+            holder.requesterName.setTypeface(null, android.graphics.Typeface.NORMAL)
+        }
+
         holder.notes.text = request.notes
 
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
@@ -119,4 +129,4 @@ class RequestAdapter(private val requests: List<Request>) :
     }
 
     override fun getItemCount(): Int = requests.size
-}
+    }
