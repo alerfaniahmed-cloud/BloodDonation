@@ -22,6 +22,10 @@
         </activity>
 
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
 
