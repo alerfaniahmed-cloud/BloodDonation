@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 
 class RequestAdapter(private val requests: List<Request>) :
@@ -37,10 +38,39 @@ class RequestAdapter(private val requests: List<Request>) :
 
         holder.contactButton.setOnClickListener {
             val context = holder.itemView.context
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:${request.contactPhone}")
-            context.startActivity(intent)
+
+            val options = arrayOf("اتصال", "واتساب")
+            AlertDialog.Builder(context)
+                .setTitle("طريقة التواصل")
+                .setItems(options) { _, which ->
+                    when (which) {
+                        0 -> {
+                            val intent = Intent(Intent.ACTION_DIAL)
+                            intent.data = Uri.parse("tel:${request.contactPhone}")
+                            context.startActivity(intent)
+                        }
+                        1 -> {
+                            val phone = formatPhoneForWhatsApp(request.contactPhone)
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse("https://wa.me/$phone")
+                            context.startActivity(intent)
+                        }
+                    }
+                }
+                .show()
         }
+    }
+
+    private fun formatPhoneForWhatsApp(phone: String): String {
+        var cleaned = phone.trim().replace(" ", "").replace("-", "")
+        if (cleaned.startsWith("0")) {
+            cleaned = "966" + cleaned.substring(1)
+        } else if (cleaned.startsWith("+")) {
+            cleaned = cleaned.substring(1)
+        } else if (!cleaned.startsWith("966")) {
+            cleaned = "966$cleaned"
+        }
+        return cleaned
     }
 
     override fun getItemCount(): Int = requests.size
