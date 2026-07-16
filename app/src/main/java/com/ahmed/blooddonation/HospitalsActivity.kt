@@ -1,10 +1,13 @@
 package com.ahmed.blooddonation
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
@@ -92,22 +95,51 @@ class HospitalsActivity : AppCompatActivity() {
                 filterHospitals(s.toString())
             }
         })
-
-        requestLocationPermission()
     }
 
-    private fun requestLocationPermission() {
+    override fun onResume() {
+        super.onResume()
+        checkLocationAndProceed()
+    }
+
+    private fun checkLocationAndProceed() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED
+            != PackageManager.PERMISSION_GRANTED
         ) {
-            getUserLocation()
-        } else {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
                 LOCATION_PERMISSION_REQUEST
             )
+            return
         }
+
+        if (!isLocationEnabled()) {
+            showEnableLocationDialog()
+            return
+        }
+
+        getUserLocation()
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    private fun showEnableLocationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("الموقع مغلق")
+            .setMessage("لازم تفعّل خدمة الموقع (GPS) عشان نرتب المستشفيات حسب الأقرب لك")
+            .setPositiveButton("فتح الإعدادات") { _, _ ->
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+            .setNegativeButton("لاحقًا") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
     }
 
     override fun onRequestPermissionsResult(
@@ -118,7 +150,7 @@ class HospitalsActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getUserLocation()
+                checkLocationAndProceed()
             }
         }
     }
