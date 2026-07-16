@@ -29,37 +29,7 @@
         android:layout_height="wrap_content"
         android:hint="كلمة المرور"
         android:inputType="textPassword"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="نوع الحساب (عند إنشاء حساب جديد فقط):"
-        android:textSize="14sp"
-        android:layout_marginBottom="8dp" />
-
-    <RadioGroup
-        android:id="@+id/accountTypeGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="24dp">
-
-        <RadioButton
-            android:id="@+id/radioIndividual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="فرد"
-            android:checked="true"
-            android:layout_marginEnd="24dp" />
-
-        <RadioButton
-            android:id="@+id/radioHospital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="مستشفى" />
-
-    </RadioGroup>
+        android:layout_marginBottom="24dp" />
 
     <Button
         android:id="@+id/loginButton"
