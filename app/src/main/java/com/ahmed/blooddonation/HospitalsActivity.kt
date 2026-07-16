@@ -16,10 +16,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HospitalsActivity : AppCompatActivity() {
 
-    private val allHospitals = listOf(
+    private val staticHospitals = listOf(
         // الرياض
         Hospital("مستشفى الملك فهد الطبي التخصصي", "الرياض", "0114322222", 24.6877, 46.7219),
         Hospital("مستشفى الملك فيصل التخصصي ومركز الأبحاث", "الرياض", "0114647272", 24.6690, 46.7076),
@@ -68,8 +69,12 @@ class HospitalsActivity : AppCompatActivity() {
         Hospital("مستشفى الأمير محمد بن ناصر بجازان", "جازان", "0173218888", 16.8892, 42.5611)
     )
 
+    private var registeredHospitals: List<Hospital> = emptyList()
+    private var allHospitals: List<Hospital> = staticHospitals
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchInput: EditText
+    private lateinit var db: FirebaseFirestore
     private var userLocation: Location? = null
     private var currentList: List<Hospital> = emptyList()
 
@@ -80,6 +85,8 @@ class HospitalsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hospitals)
+
+        db = FirebaseFirestore.getInstance()
 
         recyclerView = findViewById(R.id.hospitalsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -95,6 +102,37 @@ class HospitalsActivity : AppCompatActivity() {
                 filterHospitals(s.toString())
             }
         })
+
+        loadRegisteredHospitals()
+    }
+
+    private fun loadRegisteredHospitals() {
+        db.collection("users")
+            .whereEqualTo("accountType", "hospital")
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val fetched = mutableListOf<Hospital>()
+                for (doc in snapshot.documents) {
+                    val lat = doc.getDouble("lat")
+                    val lng = doc.getDouble("lng")
+                    if (lat != null && lng != null) {
+                        val name = doc.getString("name") ?: "مستشفى مسجل"
+                        val city = doc.getString("city") ?: ""
+                        val phone = doc.getString("phone") ?: ""
+                        fetched.add(Hospital(name, city, phone, lat, lng))
+                    }
+                }
+                registeredHospitals = fetched
+                allHospitals = staticHospitals + registeredHospitals
+
+                currentList = allHospitals
+                if (userLocation != null) {
+                    sortHospitalsByDistance()
+                } else {
+                    recyclerView.adapter = HospitalAdapter(currentList)
+                }
+                filterHospitals(searchInput.text.toString())
+            }
     }
 
     override fun onResume() {
