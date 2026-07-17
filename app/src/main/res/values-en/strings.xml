@@ -70,4 +70,16 @@
     <string name="account_type_hospital">Hospital</string>
     <string name="create_account_button">Create Account</string>
     <string name="account_created">Account created successfully</string>
+
+    <string name="hospitals_title">Nearby Hospitals</string>
+    <string name="hospital_search_hint">Search by hospital name or city</string>
+    <string name="contact_button">Contact</string>
+    <string name="location_disabled_title">Location is off</string>
+    <string name="location_disabled_message">Please enable location (GPS) so we can sort hospitals by nearest to you</string>
+    <string name="open_settings_button">Open Settings</string>
+    <string name="later_button">Later</string>
+    <string name="registered_hospital_default">Registered Hospital</string>
+    <string name="contact_method_title">Contact Method</string>
+    <string name="call_option">Call</string>
+    <string name="whatsapp_option">WhatsApp</string>
 </resources>
