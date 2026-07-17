@@ -13,7 +13,7 @@
             android:id="@+id/profileTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="إكمال الملف الشخصي"
+            android:text="@string/profile_title"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="24dp" />
@@ -22,7 +22,7 @@
             android:id="@+id/nameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="الاسم الكامل"
+            android:hint="@string/name_hint"
             android:inputType="textPersonName"
             android:layout_marginBottom="16dp" />
 
@@ -30,7 +30,7 @@
             android:id="@+id/phoneInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="رقم الجوال"
+            android:hint="@string/phone_hint"
             android:inputType="phone"
             android:layout_marginBottom="16dp" />
 
@@ -44,7 +44,7 @@
             android:id="@+id/cityInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="المدينة"
+            android:hint="@string/city_hint"
             android:inputType="text"
             android:layout_marginBottom="16dp" />
 
@@ -52,7 +52,7 @@
             android:id="@+id/captureLocationButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📍 حفظ موقعي الحالي"
+            android:text="@string/capture_location_button"
             android:visibility="gone"
             android:layout_marginBottom="8dp" />
 
@@ -60,7 +60,7 @@
             android:id="@+id/locationStatusText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="لم يتم تحديد الموقع بعد"
+            android:text="@string/location_not_set"
             android:textSize="13sp"
             android:textColor="#666666"
             android:visibility="gone"
@@ -70,14 +70,14 @@
             android:id="@+id/saveProfileButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="حفظ ومتابعة"
+            android:text="@string/save_button"
             android:layout_marginBottom="16dp" />
 
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="تسجيل الخروج"
+            android:text="@string/logout_button"
             android:textColor="#D32F2F"
             android:backgroundTint="#FFEBEE" />
 
