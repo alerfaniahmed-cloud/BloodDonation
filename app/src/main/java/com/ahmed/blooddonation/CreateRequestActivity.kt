@@ -34,14 +34,14 @@ class CreateRequestActivity : AppCompatActivity() {
         val bloodAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bloodTypes)
         bloodTypeSpinner.adapter = bloodAdapter
 
-        val urgencyLevels = arrayOf("عاجل", "خلال يومين", "غير عاجل")
+        val urgencyLevels = resources.getStringArray(R.array.urgency_levels)
         val urgencyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, urgencyLevels)
         urgencySpinner.adapter = urgencyAdapter
 
         editRequestId = intent.getStringExtra("editRequestId")
 
         if (editRequestId != null) {
-            submitButton.text = "تحديث النداء"
+            submitButton.text = getString(R.string.update_request_button)
 
             val editBloodType = intent.getStringExtra("editBloodType")
             val editUrgency = intent.getStringExtra("editUrgency")
@@ -68,7 +68,7 @@ class CreateRequestActivity : AppCompatActivity() {
             val urgency = urgencySpinner.selectedItem.toString()
 
             if (city.isEmpty() || phone.isEmpty()) {
-                Toast.makeText(this, "الرجاء تعبئة المدينة ورقم التواصل", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fill_city_phone), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -84,17 +84,17 @@ class CreateRequestActivity : AppCompatActivity() {
                 db.collection("requests").document(editRequestId!!)
                     .update(updates)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "تم تحديث النداء بنجاح", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.request_updated), Toast.LENGTH_SHORT).show()
                         finish()
                     }
                     .addOnFailureListener { e ->
-                        Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
                     }
             } else {
                 val userId = auth.currentUser?.uid
                 db.collection("users").document(userId ?: "").get()
                     .addOnSuccessListener { userDoc ->
-                        val requesterName = userDoc.getString("name") ?: "مستخدم"
+                        val requesterName = userDoc.getString("name") ?: getString(R.string.default_requester_name)
                         val requesterType = userDoc.getString("accountType") ?: "individual"
 
                         val request = hashMapOf(
@@ -112,11 +112,11 @@ class CreateRequestActivity : AppCompatActivity() {
                         db.collection("requests")
                             .add(request)
                             .addOnSuccessListener {
-                                Toast.makeText(this, "تم نشر النداء بنجاح", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, getString(R.string.request_published), Toast.LENGTH_SHORT).show()
                                 finish()
                             }
                             .addOnFailureListener { e ->
-                                Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
                             }
                     }
             }
