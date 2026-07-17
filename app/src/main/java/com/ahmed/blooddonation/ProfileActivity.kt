@@ -73,13 +73,13 @@ class ProfileActivity : AppCompatActivity() {
             val city = cityInput.text.toString().trim()
 
             if (name.isEmpty() || phone.isEmpty() || city.isEmpty()) {
-                Toast.makeText(this, "الرجاء تعبئة جميع الحقول", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val userId = auth.currentUser?.uid
             if (userId == null) {
-                Toast.makeText(this, "حدث خطأ، الرجاء تسجيل الدخول مرة أخرى", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.error_relogin), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -103,12 +103,12 @@ class ProfileActivity : AppCompatActivity() {
             db.collection("users").document(userId)
                 .set(userProfile, SetOptions.merge())
                 .addOnSuccessListener {
-                    Toast.makeText(this, "تم حفظ بياناتك بنجاح", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.profile_saved), Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
                 }
         }
 
@@ -152,7 +152,7 @@ class ProfileActivity : AppCompatActivity() {
                         if (lat != null && lng != null) {
                             hospitalLat = lat
                             hospitalLng = lng
-                            locationStatusText.text = "الموقع المحفوظ: $lat, $lng"
+                            locationStatusText.text = getString(R.string.location_saved_prefix, lat.toString(), lng.toString())
                         }
                     } else {
                         val savedBloodType = doc.getString("bloodType")
@@ -206,7 +206,7 @@ class ProfileActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 captureCurrentLocation()
             } else {
-                Toast.makeText(this, "لازم تسمح بالوصول للموقع عشان نحفظه", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.location_permission_required), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -227,13 +227,17 @@ class ProfileActivity : AppCompatActivity() {
             if (bestLocation != null) {
                 hospitalLat = bestLocation.latitude
                 hospitalLng = bestLocation.longitude
-                locationStatusText.text = "تم تحديد الموقع: ${bestLocation.latitude}, ${bestLocation.longitude}"
-                Toast.makeText(this, "تم حفظ موقعك الحالي بنجاح", Toast.LENGTH_SHORT).show()
+                locationStatusText.text = getString(
+                    R.string.location_captured_prefix,
+                    bestLocation.latitude.toString(),
+                    bestLocation.longitude.toString()
+                )
+                Toast.makeText(this, getString(R.string.location_saved_current), Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "تعذر تحديد الموقع، تأكد إن GPS مفعّل وحاول مرة ثانية", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.location_capture_failed), Toast.LENGTH_LONG).show()
             }
         } catch (e: SecurityException) {
-            Toast.makeText(this, "خطأ بصلاحية الموقع", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.location_permission_error), Toast.LENGTH_SHORT).show()
         }
     }
 }
