@@ -32,9 +32,12 @@ class HospitalAdapter(private val hospitals: List<Hospital>) :
 
         holder.contactButton.setOnClickListener {
             val context = holder.itemView.context
-            val options = arrayOf("اتصال", "واتساب")
+            val options = arrayOf(
+                context.getString(R.string.call_option),
+                context.getString(R.string.whatsapp_option)
+            )
             AlertDialog.Builder(context)
-                .setTitle("طريقة التواصل")
+                .setTitle(context.getString(R.string.contact_method_title))
                 .setItems(options) { _, which ->
                     when (which) {
                         0 -> {
