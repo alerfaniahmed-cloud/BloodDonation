@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -30,6 +32,12 @@ class LoginActivity : AppCompatActivity() {
         val passwordInput = findViewById<EditText>(R.id.passwordInput)
         val loginButton = findViewById<Button>(R.id.loginButton)
         val registerButton = findViewById<Button>(R.id.registerButton)
+        val languageButton = findViewById<Button>(R.id.languageButton)
+
+        updateLanguageButtonText(languageButton)
+        languageButton.setOnClickListener {
+            toggleAppLanguage()
+        }
 
         loginButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
@@ -55,5 +63,22 @@ class LoginActivity : AppCompatActivity() {
         registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+    }
+
+    private fun updateLanguageButtonText(button: Button) {
+        val currentLocales = AppCompatDelegate.getApplicationLocales()
+        val isEnglish = !currentLocales.isEmpty && currentLocales[0]?.language == "en"
+        button.text = if (isEnglish) "العربية" else "English"
+    }
+
+    private fun toggleAppLanguage() {
+        val currentLocales = AppCompatDelegate.getApplicationLocales()
+        val isEnglish = !currentLocales.isEmpty && currentLocales[0]?.language == "en"
+        val newLocale = if (isEnglish) {
+            LocaleListCompat.forLanguageTags("ar")
+        } else {
+            LocaleListCompat.forLanguageTags("en")
+        }
+        AppCompatDelegate.setApplicationLocales(newLocale)
     }
 }
