@@ -1,97 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">دم</string>
-    <string name="main_title">نداءات التبرع بالدم</string>
-    <string name="profile_button">حسابي</string>
-    <string name="hospitals_button">المستشفيات</string>
-    <string name="city_filter_hint">تصفية حسب المدينة</string>
-    <string name="empty_requests">لا توجد نداءات حالياً</string>
-    <string name="add_request_button">+ إنشاء نداء جديد</string>
+<string name="help_cases_button">حالات المساعدة</string>
+    <string name="help_cases_title">حالات تحتاج مساعدة</string>
+    <string name="create_help_case_button">+ طلب مساعدة جديد</string>
+    <string name="help_case_title_hint">عنوان الحالة (مثال: عملية قلب مستعجلة)</string>
+    <string name="help_case_description_hint">وصف الحالة بالتفصيل</string>
+    <string name="help_case_category_label">نوع الاحتياج</string>
+    <string name="help_case_amount_hint">المبلغ المطلوب تقريبًا (اختياري)</string>
+    <string name="charity_name_hint">اسم المستشفى أو الجهة الطبية</string>
+    <string name="charity_contact_hint">رقم الحساب البنكي (آيبان)</string>
+    <string name="submit_help_case_button">نشر الحالة</string>
+    <string name="help_case_published">تم نشر الحالة بنجاح</string>
+    <string name="empty_help_cases">لا توجد حالات حالياً</string>
+    <string name="fill_required_help_fields">الرجاء تعبئة عنوان الحالة والوصف واسم المستشفى ورقم الحساب</string>
+    <string name="charity_disclaimer">التطبيق لا يستقبل أي تحويلات مالية، التحويل يكون مباشرة لحساب المستشفى الموضح</string>
+    <string name="view_details_button">عرض التفاصيل</string>
 
-    <string-array name="blood_types_filter">
-        <item>الكل</item>
-        <item>A+</item>
-        <item>A-</item>
-        <item>B+</item>
-        <item>B-</item>
-        <item>AB+</item>
-        <item>AB-</item>
-        <item>O+</item>
-        <item>O-</item>
+    <string-array name="help_case_categories">
+        <item>علاج</item>
+        <item>عملية جراحية</item>
+        <item>فحوصات طبية</item>
+        <item>أخرى</item>
     </string-array>
-
-    <string name="profile_title">إكمال الملف الشخصي</string>
-    <string name="name_hint">الاسم الكامل</string>
-    <string name="phone_hint">رقم الجوال</string>
-    <string name="city_hint">المدينة</string>
-    <string name="capture_location_button">📍 حفظ موقعي الحالي</string>
-    <string name="location_not_set">لم يتم تحديد الموقع بعد</string>
-    <string name="save_button">حفظ ومتابعة</string>
-    <string name="logout_button">تسجيل الخروج</string>
-    <string name="location_saved_prefix">الموقع المحفوظ: %1$s, %2$s</string>
-    <string name="location_captured_prefix">تم تحديد الموقع: %1$s, %2$s</string>
-    <string name="fill_all_fields">الرجاء تعبئة جميع الحقول</string>
-    <string name="error_relogin">حدث خطأ، الرجاء تسجيل الدخول مرة أخرى</string>
-    <string name="profile_saved">تم حفظ بياناتك بنجاح</string>
-    <string name="error_generic">خطأ: %1$s</string>
-    <string name="location_permission_required">لازم تسمح بالوصول للموقع عشان نحفظه</string>
-    <string name="location_capture_failed">تعذر تحديد الموقع، تأكد إن GPS مفعّل وحاول مرة ثانية</string>
-    <string name="location_saved_current">تم حفظ موقعك الحالي بنجاح</string>
-    <string name="location_permission_error">خطأ بصلاحية الموقع</string>
-
-    <string name="login_title">تسجيل الدخول</string>
-    <string name="email_hint">البريد الإلكتروني</string>
-    <string name="password_hint">كلمة المرور</string>
-    <string name="login_button">دخول</string>
-    <string name="register_button">إنشاء حساب جديد</string>
-    <string name="login_success">تم تسجيل الدخول بنجاح</string>
-
-    <string name="create_request_title">إنشاء نداء تبرع بالدم</string>
-    <string name="blood_type_needed_label">فصيلة الدم المطلوبة</string>
-    <string name="urgency_label">درجة الاستعجال</string>
-    <string name="contact_phone_hint">رقم التواصل</string>
-    <string name="notes_hint">ملاحظات إضافية (اختياري)</string>
-    <string name="submit_request_button">نشر النداء</string>
-    <string name="update_request_button">تحديث النداء</string>
-    <string name="fill_city_phone">الرجاء تعبئة المدينة ورقم التواصل</string>
-    <string name="request_updated">تم تحديث النداء بنجاح</string>
-    <string name="request_published">تم نشر النداء بنجاح</string>
-    <string name="default_requester_name">مستخدم</string>
-
-    <string-array name="urgency_levels">
-        <item>عاجل</item>
-        <item>خلال يومين</item>
-        <item>غير عاجل</item>
-    </string-array>
-
-    <string name="register_title">إنشاء حساب جديد</string>
-    <string name="account_type_label">نوع الحساب:</string>
-    <string name="account_type_individual">فرد</string>
-    <string name="account_type_hospital">مستشفى</string>
-    <string name="create_account_button">إنشاء الحساب</string>
-    <string name="account_created">تم إنشاء الحساب بنجاح</string>
-
-    <string name="hospitals_title">المستشفيات القريبة</string>
-    <string name="hospital_search_hint">ابحث باسم المستشفى أو المدينة</string>
-    <string name="contact_button">تواصل</string>
-    <string name="location_disabled_title">الموقع مغلق</string>
-    <string name="location_disabled_message">لازم تفعّل خدمة الموقع (GPS) عشان نرتب المستشفيات حسب الأقرب لك</string>
-    <string name="open_settings_button">فتح الإعدادات</string>
-    <string name="later_button">لاحقًا</string>
-    <string name="registered_hospital_default">مستشفى مسجل</string>
-    <string name="contact_method_title">طريقة التواصل</string>
-    <string name="call_option">اتصال</string>
-    <string name="whatsapp_option">واتساب</string>
-
-    <string name="ready_to_donate_button">🩸 أنا جاهز أتبرع</string>
-    <string name="complete_profile_first">أكمل بياناتك (فصيلة الدم والمدينة) من صفحة حسابي أولاً</string>
-    <string name="location_required_for_donate">نحتاج نحدد موقعك أولاً عشان نعرف أقرب مستشفى</string>
-    <string name="confirm_donate_title">تأكيد الرغبة بالتبرع</string>
-    <string name="confirm_donate_message">أقرب مستشفى لك هو %1$s، تبي نرسل طلبك؟</string>
-    <string name="confirm_button">تأكيد</string>
-    <string name="cancel_button">إلغاء</string>
-    <string name="donor_offer_sent">تم إرسال طلبك، %1$s استلمت إشعارك</string>
-    <string name="donor_offer_saved_static">سجلنا رغبتك، تواصل مع %1$s مباشرة</string>
-    <string name="donor_offer_notification_title">متبرع جاهز بالقرب منك</string>
-    <string name="donor_offer_notification_text">%1$s (%2$s) في %3$s</string>
-</resources>
