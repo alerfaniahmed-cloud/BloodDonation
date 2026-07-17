@@ -17,7 +17,6 @@
             android:id="@+id/hospitalNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="اسم المستشفى"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -25,7 +24,6 @@
             android:id="@+id/hospitalCityText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="المدينة"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
@@ -33,7 +31,7 @@
             android:id="@+id/hospitalContactButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="تواصل"
+            android:text="@string/contact_button"
             android:layout_marginTop="12dp" />
 
     </LinearLayout>
