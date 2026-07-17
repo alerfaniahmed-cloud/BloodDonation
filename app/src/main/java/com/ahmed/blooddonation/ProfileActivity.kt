@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -54,6 +55,7 @@ class ProfileActivity : AppCompatActivity() {
         captureLocationButton = findViewById(R.id.captureLocationButton)
         locationStatusText = findViewById(R.id.locationStatusText)
         val saveButton = findViewById<Button>(R.id.saveProfileButton)
+        val logoutButton = findViewById<Button>(R.id.logoutButton)
 
         val bloodTypes = arrayOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bloodTypes)
@@ -109,6 +111,26 @@ class ProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
                 }
         }
+
+        logoutButton.setOnClickListener {
+            performLogout()
+        }
+
+        // بدل ما زر الرجوع بالجهاز يطلع من التطبيق، يرجعنا للشاشة الرئيسية
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
+                finish()
+            }
+        })
+    }
+
+    private fun performLogout() {
+        auth.signOut()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     private fun loadExistingProfile(bloodTypes: Array<String>) {
