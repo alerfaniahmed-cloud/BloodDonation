@@ -45,4 +45,22 @@
     <string name="login_button">Log In</string>
     <string name="register_button">Create New Account</string>
     <string name="login_success">Logged in successfully</string>
+
+    <string name="create_request_title">Create Blood Donation Request</string>
+    <string name="blood_type_needed_label">Blood Type Needed</string>
+    <string name="urgency_label">Urgency Level</string>
+    <string name="contact_phone_hint">Contact Number</string>
+    <string name="notes_hint">Additional Notes (optional)</string>
+    <string name="submit_request_button">Publish Request</string>
+    <string name="update_request_button">Update Request</string>
+    <string name="fill_city_phone">Please fill in the city and contact number</string>
+    <string name="request_updated">Request updated successfully</string>
+    <string name="request_published">Request published successfully</string>
+    <string name="default_requester_name">User</string>
+
+    <string-array name="urgency_levels">
+        <item>Urgent</item>
+        <item>Within 2 days</item>
+        <item>Not urgent</item>
+    </string-array>
 </resources>
