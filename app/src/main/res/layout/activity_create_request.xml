@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="إنشاء نداء تبرع بالدم"
+            android:text="@string/create_request_title"
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_marginBottom="24dp" />
@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="فصيلة الدم المطلوبة" />
+            android:text="@string/blood_type_needed_label" />
 
         <Spinner
             android:id="@+id/bloodTypeSpinner"
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="درجة الاستعجال" />
+            android:text="@string/urgency_label" />
 
         <Spinner
             android:id="@+id/urgencySpinner"
@@ -43,7 +43,7 @@
             android:id="@+id/cityInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="المدينة"
+            android:hint="@string/city_hint"
             android:inputType="text"
             android:layout_marginBottom="16dp" />
 
@@ -51,7 +51,7 @@
             android:id="@+id/phoneInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="رقم التواصل"
+            android:hint="@string/contact_phone_hint"
             android:inputType="phone"
             android:layout_marginBottom="16dp" />
 
@@ -59,7 +59,7 @@
             android:id="@+id/notesInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ملاحظات إضافية (اختياري)"
+            android:hint="@string/notes_hint"
             android:inputType="textMultiLine"
             android:minLines="3"
             android:layout_marginBottom="24dp" />
@@ -68,7 +68,7 @@
             android:id="@+id/submitButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="نشر النداء" />
+            android:text="@string/submit_request_button" />
 
     </LinearLayout>
 
