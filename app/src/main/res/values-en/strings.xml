@@ -82,4 +82,16 @@
     <string name="contact_method_title">Contact Method</string>
     <string name="call_option">Call</string>
     <string name="whatsapp_option">WhatsApp</string>
+
+    <string name="ready_to_donate_button">🩸 I\'m Ready to Donate</string>
+    <string name="complete_profile_first">Please complete your profile (blood type and city) from My Account first</string>
+    <string name="location_required_for_donate">We need your location first to find the nearest hospital</string>
+    <string name="confirm_donate_title">Confirm Donation Intent</string>
+    <string name="confirm_donate_message">Your nearest hospital is %1$s, send your request?</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="donor_offer_sent">Your request was sent, %1$s received your notification</string>
+    <string name="donor_offer_saved_static">Your intent was saved, contact %1$s directly</string>
+    <string name="donor_offer_notification_title">A donor is ready near you</string>
+    <string name="donor_offer_notification_text">%1$s (%2$s) in %3$s</string>
 </resources>
