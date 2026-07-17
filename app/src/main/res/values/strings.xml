@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">دم</string>
+    <string name="main_title">نداءات التبرع بالدم</string>
+    <string name="profile_button">حسابي</string>
+    <string name="hospitals_button">المستشفيات</string>
+    <string name="city_filter_hint">تصفية حسب المدينة</string>
+    <string name="empty_requests">لا توجد نداءات حالياً</string>
+    <string name="add_request_button">+ إنشاء نداء جديد</string>
+
+    <string-array name="blood_types_filter">
+        <item>الكل</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+</resources>
