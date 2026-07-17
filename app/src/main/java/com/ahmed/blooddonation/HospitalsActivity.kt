@@ -339,6 +339,4 @@ class HospitalsActivity : AppCompatActivity() {
         currentList = filtered
         recyclerView.adapter = HospitalAdapter(filtered)
     }
-}er = HospitalAdapter(filtered)
-    }
 }
