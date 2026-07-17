@@ -94,4 +94,27 @@
     <string name="donor_offer_saved_static">Your intent was saved, contact %1$s directly</string>
     <string name="donor_offer_notification_title">A donor is ready near you</string>
     <string name="donor_offer_notification_text">%1$s (%2$s) in %3$s</string>
+
+    <string name="help_cases_button">Help Cases</string>
+    <string name="help_cases_title">Cases Needing Help</string>
+    <string name="create_help_case_button">+ Request New Help</string>
+    <string name="help_case_title_hint">Case title (e.g. Urgent heart surgery)</string>
+    <string name="help_case_description_hint">Describe the case in detail</string>
+    <string name="help_case_category_label">Type of Need</string>
+    <string name="help_case_amount_hint">Approximate amount needed (optional)</string>
+    <string name="charity_name_hint">Hospital or Medical Facility Name</string>
+    <string name="charity_contact_hint">Bank Account Number (IBAN)</string>
+    <string name="submit_help_case_button">Publish Case</string>
+    <string name="help_case_published">Case published successfully</string>
+    <string name="empty_help_cases">No cases currently</string>
+    <string name="fill_required_help_fields">Please fill in the case title, description, hospital name, and account number</string>
+    <string name="charity_disclaimer">The app does not process any payments, transfer is made directly to the listed hospital account</string>
+    <string name="view_details_button">View Details</string>
+
+    <string-array name="help_case_categories">
+        <item>Medical Treatment</item>
+        <item>Surgery</item>
+        <item>Medical Tests</item>
+        <item>Other</item>
+    </string-array>
 </resources>
