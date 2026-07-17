@@ -5,5 +5,7 @@ data class Hospital(
     val city: String = "",
     val phone: String = "",
     val lat: Double = 0.0,
-    val lng: Double = 0.0
+    val lng: Double = 0.0,
+    val isRegistered: Boolean = false,
+    val hospitalUserId: String = ""
 )
