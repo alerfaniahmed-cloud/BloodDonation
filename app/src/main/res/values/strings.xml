@@ -70,4 +70,16 @@
     <string name="account_type_hospital">مستشفى</string>
     <string name="create_account_button">إنشاء الحساب</string>
     <string name="account_created">تم إنشاء الحساب بنجاح</string>
+
+    <string name="hospitals_title">المستشفيات القريبة</string>
+    <string name="hospital_search_hint">ابحث باسم المستشفى أو المدينة</string>
+    <string name="contact_button">تواصل</string>
+    <string name="location_disabled_title">الموقع مغلق</string>
+    <string name="location_disabled_message">لازم تفعّل خدمة الموقع (GPS) عشان نرتب المستشفيات حسب الأقرب لك</string>
+    <string name="open_settings_button">فتح الإعدادات</string>
+    <string name="later_button">لاحقًا</string>
+    <string name="registered_hospital_default">مستشفى مسجل</string>
+    <string name="contact_method_title">طريقة التواصل</string>
+    <string name="call_option">اتصال</string>
+    <string name="whatsapp_option">واتساب</string>
 </resources>
