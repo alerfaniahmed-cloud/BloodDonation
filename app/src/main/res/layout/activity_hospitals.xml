@@ -14,11 +14,23 @@
         android:padding="16dp"
         android:background="#F5F5F5" />
 
+    <Button
+        android:id="@+id/readyToDonateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hospitalsTitleText"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ready_to_donate_button"
+        android:backgroundTint="#C62828"
+        android:textColor="#FFFFFF" />
+
     <EditText
         android:id="@+id/hospitalSearchInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hospitalsTitleText"
+        android:layout_below="@id/readyToDonateButton"
         android:layout_margin="12dp"
         android:padding="12dp"
         android:hint="@string/hospital_search_hint"
