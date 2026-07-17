@@ -4,9 +4,36 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/languageBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEE"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+
+        <Button
+            android:id="@+id/languageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="English"
+            android:textSize="12sp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/languageBar"
         android:background="#F5F5F5"
         android:padding="16dp">
 
@@ -15,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="نداءات التبرع بالدم"
+            android:text="@string/main_title"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -25,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:text="حسابي"
+            android:text="@string/profile_button"
             android:minWidth="0dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp" />
@@ -36,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:text="المستشفيات"
+            android:text="@string/hospitals_button"
             android:minWidth="0dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp" />
@@ -62,7 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="تصفية حسب المدينة"
+            android:hint="@string/city_filter_hint"
             android:inputType="text" />
 
     </LinearLayout>
@@ -80,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="لا توجد نداءات حالياً"
+        android:text="@string/empty_requests"
         android:textSize="16sp"
         android:visibility="gone" />
 
@@ -89,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="+ إنشاء نداء جديد"
+        android:text="@string/add_request_button"
         android:padding="16dp" />
 
 </RelativeLayout>
