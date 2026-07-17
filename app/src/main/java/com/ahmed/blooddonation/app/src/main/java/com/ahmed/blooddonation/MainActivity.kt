@@ -18,9 +18,11 @@ import android.widget.Spinner
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -45,8 +47,6 @@ class MainActivity : AppCompatActivity() {
     private var currentUserCity: String? = null
     private var currentAccountType: String = "individual"
 
-    private val bloodTypes = arrayOf("الكل", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
-
     companion object {
         private const val CHANNEL_ID = "blood_requests_channel"
         private const val NOTIFICATION_PERMISSION_REQUEST = 300
@@ -65,9 +65,11 @@ class MainActivity : AppCompatActivity() {
         val addButton = findViewById<Button>(R.id.addButton)
         val profileButton = findViewById<Button>(R.id.profileButton)
         val hospitalsButton = findViewById<Button>(R.id.hospitalsButton)
+        val languageButton = findViewById<Button>(R.id.languageButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        val bloodTypes = resources.getStringArray(R.array.blood_types_filter)
         val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodTypes)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         bloodTypeFilterSpinner.adapter = spinnerAdapter
@@ -87,6 +89,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        updateLanguageButtonText(languageButton)
+        languageButton.setOnClickListener {
+            toggleAppLanguage()
+        }
+
         createNotificationChannel()
         requestNotificationPermission()
         loadCurrentUserProfile()
@@ -102,6 +109,23 @@ class MainActivity : AppCompatActivity() {
         hospitalsButton.setOnClickListener {
             startActivity(Intent(this, HospitalsActivity::class.java))
         }
+    }
+
+    private fun updateLanguageButtonText(button: Button) {
+        val currentLocales = AppCompatDelegate.getApplicationLocales()
+        val isEnglish = !currentLocales.isEmpty && currentLocales[0]?.language == "en"
+        button.text = if (isEnglish) "العربية" else "English"
+    }
+
+    private fun toggleAppLanguage() {
+        val currentLocales = AppCompatDelegate.getApplicationLocales()
+        val isEnglish = !currentLocales.isEmpty && currentLocales[0]?.language == "en"
+        val newLocale = if (isEnglish) {
+            LocaleListCompat.forLanguageTags("ar")
+        } else {
+            LocaleListCompat.forLanguageTags("en")
+        }
+        AppCompatDelegate.setApplicationLocales(newLocale)
     }
 
     override fun onResume() {
@@ -235,11 +259,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun applyFilters() {
-        val selectedBloodType = bloodTypeFilterSpinner.selectedItem?.toString() ?: "الكل"
+        val selectedPosition = bloodTypeFilterSpinner.selectedItemPosition
+        val selectedBloodType = bloodTypeFilterSpinner.selectedItem?.toString() ?: ""
         val cityQuery = cityFilterInput.text.toString().trim()
 
         val filtered = allRequests.filter { request ->
-            val matchesBloodType = selectedBloodType == "الكل" || request.bloodType == selectedBloodType
+            val matchesBloodType = selectedPosition == 0 || request.bloodType == selectedBloodType
             val matchesCity = cityQuery.isEmpty() || request.city.contains(cityQuery, ignoreCase = true)
             matchesBloodType && matchesCity
         }
