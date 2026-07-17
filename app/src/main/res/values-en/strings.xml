@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dam</string>
+    <string name="main_title">Blood Donation Requests</string>
+    <string name="profile_button">My Account</string>
+    <string name="hospitals_button">Hospitals</string>
+    <string name="city_filter_hint">Filter by city</string>
+    <string name="empty_requests">No requests currently</string>
+    <string name="add_request_button">+ Create New Request</string>
+
+    <string-array name="blood_types_filter">
+        <item>All</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+</resources>
