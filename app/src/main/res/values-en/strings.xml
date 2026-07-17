@@ -63,4 +63,11 @@
         <item>Within 2 days</item>
         <item>Not urgent</item>
     </string-array>
+
+    <string name="register_title">Create New Account</string>
+    <string name="account_type_label">Account Type:</string>
+    <string name="account_type_individual">Individual</string>
+    <string name="account_type_hospital">Hospital</string>
+    <string name="create_account_button">Create Account</string>
+    <string name="account_created">Account created successfully</string>
 </resources>
