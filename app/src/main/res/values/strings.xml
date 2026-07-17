@@ -82,4 +82,16 @@
     <string name="contact_method_title">طريقة التواصل</string>
     <string name="call_option">اتصال</string>
     <string name="whatsapp_option">واتساب</string>
+
+    <string name="ready_to_donate_button">🩸 أنا جاهز أتبرع</string>
+    <string name="complete_profile_first">أكمل بياناتك (فصيلة الدم والمدينة) من صفحة حسابي أولاً</string>
+    <string name="location_required_for_donate">نحتاج نحدد موقعك أولاً عشان نعرف أقرب مستشفى</string>
+    <string name="confirm_donate_title">تأكيد الرغبة بالتبرع</string>
+    <string name="confirm_donate_message">أقرب مستشفى لك هو %1$s، تبي نرسل طلبك؟</string>
+    <string name="confirm_button">تأكيد</string>
+    <string name="cancel_button">إلغاء</string>
+    <string name="donor_offer_sent">تم إرسال طلبك، %1$s استلمت إشعارك</string>
+    <string name="donor_offer_saved_static">سجلنا رغبتك، تواصل مع %1$s مباشرة</string>
+    <string name="donor_offer_notification_title">متبرع جاهز بالقرب منك</string>
+    <string name="donor_offer_notification_text">%1$s (%2$s) في %3$s</string>
 </resources>
