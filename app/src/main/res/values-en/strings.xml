@@ -19,4 +19,23 @@
         <item>O+</item>
         <item>O-</item>
     </string-array>
+
+    <string name="profile_title">Complete Your Profile</string>
+    <string name="name_hint">Full Name</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="city_hint">City</string>
+    <string name="capture_location_button">📍 Save My Current Location</string>
+    <string name="location_not_set">Location not set yet</string>
+    <string name="save_button">Save &amp; Continue</string>
+    <string name="logout_button">Log Out</string>
+    <string name="location_saved_prefix">Saved location: %1$s, %2$s</string>
+    <string name="location_captured_prefix">Location captured: %1$s, %2$s</string>
+    <string name="fill_all_fields">Please fill in all fields</string>
+    <string name="error_relogin">An error occurred, please log in again</string>
+    <string name="profile_saved">Your profile was saved successfully</string>
+    <string name="error_generic">Error: %1$s</string>
+    <string name="location_permission_required">Location access is required to save it</string>
+    <string name="location_capture_failed">Couldn\'t detect location, make sure GPS is on and try again</string>
+    <string name="location_saved_current">Your current location was saved successfully</string>
+    <string name="location_permission_error">Location permission error</string>
 </resources>
