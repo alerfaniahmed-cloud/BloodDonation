@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var emptyText: TextView
     private lateinit var bloodTypeFilterSpinner: Spinner
     private lateinit var cityFilterInput: EditText
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private var allRequests: List<Request> = listOf()
     private var requestListener: ListenerRegistration? = null
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         emptyText = findViewById(R.id.emptyText)
         bloodTypeFilterSpinner = findViewById(R.id.bloodTypeFilterSpinner)
         cityFilterInput = findViewById(R.id.cityFilterInput)
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         val addButton = findViewById<Button>(R.id.addButton)
         val profileButton = findViewById<Button>(R.id.profileButton)
         val hospitalsButton = findViewById<Button>(R.id.hospitalsButton)
@@ -88,6 +91,10 @@ class MainActivity : AppCompatActivity() {
                 applyFilters()
             }
         })
+
+        swipeRefreshLayout.setOnRefreshListener {
+            loadRequests()
+        }
 
         updateLanguageButtonText(languageButton)
         languageButton.setOnClickListener {
@@ -154,6 +161,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadRequests() {
+        swipeRefreshLayout.isRefreshing = true
         db.collection("requests")
             .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
             .get()
@@ -166,6 +174,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 allRequests = requests
                 applyFilters()
+                swipeRefreshLayout.isRefreshing = false
+            }
+            .addOnFailureListener {
+                swipeRefreshLayout.isRefreshing = false
             }
     }
 
