@@ -63,4 +63,11 @@
         <item>خلال يومين</item>
         <item>غير عاجل</item>
     </string-array>
+
+    <string name="register_title">إنشاء حساب جديد</string>
+    <string name="account_type_label">نوع الحساب:</string>
+    <string name="account_type_individual">فرد</string>
+    <string name="account_type_hospital">مستشفى</string>
+    <string name="create_account_button">إنشاء الحساب</string>
+    <string name="account_created">تم إنشاء الحساب بنجاح</string>
 </resources>
