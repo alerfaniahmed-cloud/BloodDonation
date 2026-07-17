@@ -42,6 +42,14 @@
             android:name=".HospitalsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".HelpCasesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".CreateHelpCaseActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
