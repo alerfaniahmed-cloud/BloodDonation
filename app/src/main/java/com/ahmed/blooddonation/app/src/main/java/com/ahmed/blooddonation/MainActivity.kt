@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private var allRequests: List<Request> = listOf()
     private var requestListener: ListenerRegistration? = null
+    private var donorOfferListener: ListenerRegistration? = null
     private var screenOpenTime: Long = 0L
 
     private var currentUserBloodType: String? = null
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val CHANNEL_ID = "blood_requests_channel"
+        private const val DONOR_OFFER_CHANNEL_ID = "donor_offer_channel"
         private const val NOTIFICATION_PERMISSION_REQUEST = 300
     }
 
@@ -147,6 +149,8 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         requestListener?.remove()
         requestListener = null
+        donorOfferListener?.remove()
+        donorOfferListener = null
     }
 
     private fun loadCurrentUserProfile() {
@@ -157,6 +161,10 @@ class MainActivity : AppCompatActivity() {
                     currentAccountType = doc.getString("accountType") ?: "individual"
                     currentUserBloodType = doc.getString("bloodType")
                     currentUserCity = doc.getString("city")
+
+                    if (currentAccountType == "hospital") {
+                        startDonorOfferListener(userId)
+                    }
                 }
             }
     }
@@ -194,6 +202,25 @@ class MainActivity : AppCompatActivity() {
 
                         if (request.timestamp > screenOpenTime) {
                             checkAndNotify(request)
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun startDonorOfferListener(hospitalUserId: String) {
+        donorOfferListener = db.collection("donorOffers")
+            .whereEqualTo("targetHospitalId", hospitalUserId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null || snapshot == null) return@addSnapshotListener
+
+                for (change in snapshot.documentChanges) {
+                    if (change.type == DocumentChange.Type.ADDED) {
+                        val offer = change.document.toObject(DonorOffer::class.java)
+                        offer.id = change.document.id
+
+                        if (offer.timestamp > screenOpenTime) {
+                            showDonorOfferNotification(offer)
                         }
                     }
                 }
@@ -243,17 +270,55 @@ class MainActivity : AppCompatActivity() {
         manager.notify(notificationId, builder.build())
     }
 
+    private fun showDonorOfferNotification(offer: DonorOffer) {
+        val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+        if (!hasPermission) return
+
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 1, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = NotificationCompat.Builder(this, DONOR_OFFER_CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_dialog_alert)
+            .setContentTitle(getString(R.string.donor_offer_notification_title))
+            .setContentText(getString(R.string.donor_offer_notification_text, offer.donorName, offer.bloodType, offer.city))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+
+        val notificationId = offer.id.hashCode()
+        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        manager.notify(notificationId, builder.build())
+    }
+
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+            val requestsChannel = NotificationChannel(
                 CHANNEL_ID,
                 "طلبات التبرع بالدم",
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "إشعارات عند نشر طلب دم يطابق فصيلتك ومدينتك"
             }
-            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
+            manager.createNotificationChannel(requestsChannel)
+
+            val donorOfferChannel = NotificationChannel(
+                DONOR_OFFER_CHANNEL_ID,
+                "متبرعون جاهزون",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "إشعارات عند وجود متبرع جاهز بالقرب من مستشفاك"
+            }
+            manager.createNotificationChannel(donorOfferChannel)
         }
     }
 
