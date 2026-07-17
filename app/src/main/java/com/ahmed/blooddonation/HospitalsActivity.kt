@@ -10,12 +10,15 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class HospitalsActivity : AppCompatActivity() {
@@ -75,6 +78,7 @@ class HospitalsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchInput: EditText
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
     private var userLocation: Location? = null
     private var currentList: List<Hospital> = emptyList()
 
@@ -87,6 +91,7 @@ class HospitalsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_hospitals)
 
         db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         recyclerView = findViewById(R.id.hospitalsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -102,6 +107,11 @@ class HospitalsActivity : AppCompatActivity() {
                 filterHospitals(s.toString())
             }
         })
+
+        val readyToDonateButton = findViewById<Button>(R.id.readyToDonateButton)
+        readyToDonateButton.setOnClickListener {
+            handleReadyToDonate()
+        }
 
         loadRegisteredHospitals()
     }
@@ -119,7 +129,7 @@ class HospitalsActivity : AppCompatActivity() {
                         val name = doc.getString("name") ?: getString(R.string.registered_hospital_default)
                         val city = doc.getString("city") ?: ""
                         val phone = doc.getString("phone") ?: ""
-                        fetched.add(Hospital(name, city, phone, lat, lng))
+                        fetched.add(Hospital(name, city, phone, lat, lng, isRegistered = true, hospitalUserId = doc.id))
                     }
                 }
                 registeredHospitals = fetched
@@ -132,6 +142,84 @@ class HospitalsActivity : AppCompatActivity() {
                     recyclerView.adapter = HospitalAdapter(currentList)
                 }
                 filterHospitals(searchInput.text.toString())
+            }
+    }
+
+    private fun handleReadyToDonate() {
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Toast.makeText(this, getString(R.string.error_relogin), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val loc = userLocation
+        if (loc == null) {
+            Toast.makeText(this, getString(R.string.location_required_for_donate), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (allHospitals.isEmpty()) return
+
+        val nearest = allHospitals.minByOrNull {
+            distanceInKm(loc.latitude, loc.longitude, it.lat, it.lng)
+        } ?: return
+
+        db.collection("users").document(userId).get()
+            .addOnSuccessListener { doc ->
+                val bloodType = doc.getString("bloodType")
+                val city = doc.getString("city")
+                val name = doc.getString("name")
+                val phone = doc.getString("phone")
+
+                if (bloodType.isNullOrBlank() || city.isNullOrBlank() || name.isNullOrBlank() || phone.isNullOrBlank()) {
+                    Toast.makeText(this, getString(R.string.complete_profile_first), Toast.LENGTH_LONG).show()
+                    return@addOnSuccessListener
+                }
+
+                AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.confirm_donate_title))
+                    .setMessage(getString(R.string.confirm_donate_message, nearest.name))
+                    .setPositiveButton(getString(R.string.confirm_button)) { _, _ ->
+                        submitDonorOffer(userId, name, phone, bloodType, city, nearest)
+                    }
+                    .setNegativeButton(getString(R.string.cancel_button)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+    }
+
+    private fun submitDonorOffer(
+        userId: String,
+        name: String,
+        phone: String,
+        bloodType: String,
+        city: String,
+        hospital: Hospital
+    ) {
+        val offer = hashMapOf(
+            "donorId" to userId,
+            "donorName" to name,
+            "donorPhone" to phone,
+            "bloodType" to bloodType,
+            "city" to city,
+            "targetHospitalId" to hospital.hospitalUserId,
+            "targetHospitalName" to hospital.name,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        db.collection("donorOffers")
+            .add(offer)
+            .addOnSuccessListener {
+                val message = if (hospital.isRegistered) {
+                    getString(R.string.donor_offer_sent, hospital.name)
+                } else {
+                    getString(R.string.donor_offer_saved_static, hospital.name)
+                }
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
             }
     }
 
@@ -250,5 +338,7 @@ class HospitalsActivity : AppCompatActivity() {
         }
         currentList = filtered
         recyclerView.adapter = HospitalAdapter(filtered)
+    }
+}er = HospitalAdapter(filtered)
     }
 }
