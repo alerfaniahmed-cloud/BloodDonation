@@ -116,7 +116,7 @@ class HospitalsActivity : AppCompatActivity() {
                     val lat = doc.getDouble("lat")
                     val lng = doc.getDouble("lng")
                     if (lat != null && lng != null) {
-                        val name = doc.getString("name") ?: "مستشفى مسجل"
+                        val name = doc.getString("name") ?: getString(R.string.registered_hospital_default)
                         val city = doc.getString("city") ?: ""
                         val phone = doc.getString("phone") ?: ""
                         fetched.add(Hospital(name, city, phone, lat, lng))
@@ -168,12 +168,12 @@ class HospitalsActivity : AppCompatActivity() {
 
     private fun showEnableLocationDialog() {
         AlertDialog.Builder(this)
-            .setTitle("الموقع مغلق")
-            .setMessage("لازم تفعّل خدمة الموقع (GPS) عشان نرتب المستشفيات حسب الأقرب لك")
-            .setPositiveButton("فتح الإعدادات") { _, _ ->
+            .setTitle(getString(R.string.location_disabled_title))
+            .setMessage(getString(R.string.location_disabled_message))
+            .setPositiveButton(getString(R.string.open_settings_button)) { _, _ ->
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
-            .setNegativeButton("لاحقًا") { dialog, _ ->
+            .setNegativeButton(getString(R.string.later_button)) { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(true)
