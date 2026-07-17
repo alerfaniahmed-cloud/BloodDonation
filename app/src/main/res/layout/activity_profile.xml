@@ -70,7 +70,16 @@
             android:id="@+id/saveProfileButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="حفظ ومتابعة" />
+            android:text="حفظ ومتابعة"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="تسجيل الخروج"
+            android:textColor="#D32F2F"
+            android:backgroundTint="#FFEBEE" />
 
     </LinearLayout>
 
