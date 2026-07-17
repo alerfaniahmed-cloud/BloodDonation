@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -26,13 +28,19 @@ class RegisterActivity : AppCompatActivity() {
         val passwordInput = findViewById<EditText>(R.id.passwordInput)
         val accountTypeGroup = findViewById<RadioGroup>(R.id.accountTypeGroup)
         val registerButton = findViewById<Button>(R.id.registerButton)
+        val languageButton = findViewById<Button>(R.id.languageButton)
+
+        updateLanguageButtonText(languageButton)
+        languageButton.setOnClickListener {
+            toggleAppLanguage()
+        }
 
         registerButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "الرجاء تعبئة جميع الحقول", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -54,19 +62,36 @@ class RegisterActivity : AppCompatActivity() {
                             firestore.collection("users").document(userId)
                                 .set(userData)
                                 .addOnCompleteListener {
-                                    Toast.makeText(this, "تم إنشاء الحساب بنجاح", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
                                     startActivity(Intent(this, ProfileActivity::class.java))
                                     finish()
                                 }
                         } else {
-                            Toast.makeText(this, "تم إنشاء الحساب بنجاح", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this, ProfileActivity::class.java))
                             finish()
                         }
                     } else {
-                        Toast.makeText(this, "خطأ: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, getString(R.string.error_generic, task.exception?.message), Toast.LENGTH_LONG).show()
                     }
                 }
         }
+    }
+
+    private fun updateLanguageButtonText(button: Button) {
+        val currentLocales = AppCompatDelegate.getApplicationLocales()
+        val isEnglish = !currentLocales.isEmpty && currentLocales[0]?.language == "en"
+        button.text = if (isEnglish) "العربية" else "English"
+    }
+
+    private fun toggleAppLanguage() {
+        val currentLocales = AppCompatDelegate.getApplicationLocales()
+        val isEnglish = !currentLocales.isEmpty && currentLocales[0]?.language == "en"
+        val newLocale = if (isEnglish) {
+            LocaleListCompat.forLanguageTags("ar")
+        } else {
+            LocaleListCompat.forLanguageTags("en")
+        }
+        AppCompatDelegate.setApplicationLocales(newLocale)
     }
 }
