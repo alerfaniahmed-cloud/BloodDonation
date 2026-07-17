@@ -38,4 +38,11 @@
     <string name="location_capture_failed">تعذر تحديد الموقع، تأكد إن GPS مفعّل وحاول مرة ثانية</string>
     <string name="location_saved_current">تم حفظ موقعك الحالي بنجاح</string>
     <string name="location_permission_error">خطأ بصلاحية الموقع</string>
+
+    <string name="login_title">تسجيل الدخول</string>
+    <string name="email_hint">البريد الإلكتروني</string>
+    <string name="password_hint">كلمة المرور</string>
+    <string name="login_button">دخول</string>
+    <string name="register_button">إنشاء حساب جديد</string>
+    <string name="login_success">تم تسجيل الدخول بنجاح</string>
 </resources>
