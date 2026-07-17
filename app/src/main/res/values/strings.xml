@@ -19,4 +19,23 @@
         <item>O+</item>
         <item>O-</item>
     </string-array>
+
+    <string name="profile_title">إكمال الملف الشخصي</string>
+    <string name="name_hint">الاسم الكامل</string>
+    <string name="phone_hint">رقم الجوال</string>
+    <string name="city_hint">المدينة</string>
+    <string name="capture_location_button">📍 حفظ موقعي الحالي</string>
+    <string name="location_not_set">لم يتم تحديد الموقع بعد</string>
+    <string name="save_button">حفظ ومتابعة</string>
+    <string name="logout_button">تسجيل الخروج</string>
+    <string name="location_saved_prefix">الموقع المحفوظ: %1$s, %2$s</string>
+    <string name="location_captured_prefix">تم تحديد الموقع: %1$s, %2$s</string>
+    <string name="fill_all_fields">الرجاء تعبئة جميع الحقول</string>
+    <string name="error_relogin">حدث خطأ، الرجاء تسجيل الدخول مرة أخرى</string>
+    <string name="profile_saved">تم حفظ بياناتك بنجاح</string>
+    <string name="error_generic">خطأ: %1$s</string>
+    <string name="location_permission_required">لازم تسمح بالوصول للموقع عشان نحفظه</string>
+    <string name="location_capture_failed">تعذر تحديد الموقع، تأكد إن GPS مفعّل وحاول مرة ثانية</string>
+    <string name="location_saved_current">تم حفظ موقعك الحالي بنجاح</string>
+    <string name="location_permission_error">خطأ بصلاحية الموقع</string>
 </resources>
