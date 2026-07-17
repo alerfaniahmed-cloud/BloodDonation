@@ -38,4 +38,11 @@
     <string name="location_capture_failed">Couldn\'t detect location, make sure GPS is on and try again</string>
     <string name="location_saved_current">Your current location was saved successfully</string>
     <string name="location_permission_error">Location permission error</string>
+
+    <string name="login_title">Log In</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Log In</string>
+    <string name="register_button">Create New Account</string>
+    <string name="login_success">Logged in successfully</string>
 </resources>
