@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dam</string>
+    <string name="app_name">Faraj</string>
     <string name="main_title">Blood Donation Requests</string>
     <string name="profile_button">My Account</string>
     <string name="hospitals_button">Hospitals</string>
