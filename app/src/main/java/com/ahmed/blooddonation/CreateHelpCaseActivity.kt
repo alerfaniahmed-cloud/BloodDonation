@@ -14,6 +14,8 @@ class CreateHelpCaseActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private var editingCaseId: String? = null
+    private var existingTimestamp: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,23 @@ class CreateHelpCaseActivity : AppCompatActivity() {
         val categories = resources.getStringArray(R.array.help_case_categories)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, categories)
         categorySpinner.adapter = adapter
+
+        editingCaseId = intent.getStringExtra("caseId")
+        existingTimestamp = intent.getLongExtra("timestamp", 0L)
+
+        if (editingCaseId != null) {
+            titleInput.setText(intent.getStringExtra("title"))
+            descriptionInput.setText(intent.getStringExtra("description"))
+            cityInput.setText(intent.getStringExtra("city"))
+            amountInput.setText(intent.getStringExtra("amountNeeded"))
+            charityNameInput.setText(intent.getStringExtra("charityName"))
+            charityContactInput.setText(intent.getStringExtra("charityContact"))
+            submitButton.text = getString(R.string.update_help_case_button)
+
+            val categoryExtra = intent.getStringExtra("category")
+            val categoryIndex = categories.indexOf(categoryExtra)
+            if (categoryIndex >= 0) categorySpinner.setSelection(categoryIndex)
+        }
 
         submitButton.setOnClickListener {
             val title = titleInput.text.toString().trim()
@@ -65,18 +84,30 @@ class CreateHelpCaseActivity : AppCompatActivity() {
                         "charityContact" to charityContact,
                         "requesterName" to requesterName,
                         "userId" to userId,
-                        "timestamp" to System.currentTimeMillis()
+                        "timestamp" to if (editingCaseId != null) existingTimestamp else System.currentTimeMillis()
                     )
 
-                    db.collection("helpCases")
-                        .add(helpCase)
-                        .addOnSuccessListener {
-                            Toast.makeText(this, getString(R.string.help_case_published), Toast.LENGTH_SHORT).show()
-                            finish()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
-                        }
+                    if (editingCaseId != null) {
+                        db.collection("helpCases").document(editingCaseId!!)
+                            .set(helpCase)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, getString(R.string.help_case_published), Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
+                            }
+                    } else {
+                        db.collection("helpCases")
+                            .add(helpCase)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, getString(R.string.help_case_published), Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
+                            }
+                    }
                 }
         }
     }
