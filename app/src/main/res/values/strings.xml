@@ -147,6 +147,11 @@
 
     <string name="emergency_button">🚨 أحتاج دم الحين</string>
 
+    <string name="community_verified_badge">✅ مؤكدة من المجتمع</string>
+    <string name="verify_case_button">أؤكد هذه الحالة (%1$d)</string>
+    <string name="already_verified_button">✅ تم تأكيدك لهذه الحالة</string>
+    <string name="case_verified_toast">شكرًا، تم تسجيل تأكيدك</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
