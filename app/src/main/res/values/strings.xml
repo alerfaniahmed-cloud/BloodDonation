@@ -135,6 +135,11 @@
     <string name="donation_count_value">%1$d تبرع</string>
     <string name="lives_saved_text">ساهمت في إنقاذ %1$d حياة تقريبًا</string>
 
+    <string name="eligible_now_text">✅ صرت مؤهل تتبرع مرة ثانية الآن</string>
+    <string name="eligible_in_days_text">باقي %1$d يوم لحد ما تقدر تتبرع مرة ثانية</string>
+    <string name="eligibility_notification_title">صرت مؤهل تتبرع مرة ثانية 🩸</string>
+    <string name="eligibility_notification_text">مرت 56 يوم على آخر تبرع، جسمك جاهز لينقذ حياة ثانية</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
