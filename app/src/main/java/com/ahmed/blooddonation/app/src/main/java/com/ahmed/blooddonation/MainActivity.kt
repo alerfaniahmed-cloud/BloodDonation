@@ -54,7 +54,10 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val CHANNEL_ID = "blood_requests_channel"
         private const val DONOR_OFFER_CHANNEL_ID = "donor_offer_channel"
+        private const val ELIGIBILITY_CHANNEL_ID = "donation_eligibility_channel"
         private const val NOTIFICATION_PERMISSION_REQUEST = 300
+        private const val ELIGIBILITY_DAYS = 56
+        private const val MILLIS_PER_DAY = 24L * 60 * 60 * 1000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,9 +186,71 @@ class MainActivity : AppCompatActivity() {
                         startDonorOfferListener(userId)
                     } else {
                         hospitalOffersButton.visibility = View.GONE
+                        checkDonationEligibilityReminder(userId)
                     }
                 }
             }
+    }
+
+    private fun checkDonationEligibilityReminder(userId: String) {
+        db.collection("donorOffers")
+            .whereEqualTo("donorId", userId)
+            .get()
+            .addOnSuccessListener { result ->
+                var lastCompletedTimestamp = 0L
+                for (doc in result) {
+                    val donorConfirmed = doc.getBoolean("donorConfirmed") ?: false
+                    val hospitalConfirmed = doc.getBoolean("hospitalConfirmed") ?: false
+                    if (donorConfirmed || hospitalConfirmed) {
+                        val completedTimestamp = doc.getLong("completedTimestamp") ?: 0L
+                        if (completedTimestamp > lastCompletedTimestamp) {
+                            lastCompletedTimestamp = completedTimestamp
+                        }
+                    }
+                }
+
+                if (lastCompletedTimestamp <= 0L) return@addOnSuccessListener
+
+                val eligibleDate = lastCompletedTimestamp + (ELIGIBILITY_DAYS * MILLIS_PER_DAY)
+                if (System.currentTimeMillis() < eligibleDate) return@addOnSuccessListener
+
+                db.collection("users").document(userId).get()
+                    .addOnSuccessListener { userDoc ->
+                        val alreadyNotifiedFor = userDoc.getLong("eligibilityNotifiedFor") ?: 0L
+                        if (alreadyNotifiedFor == lastCompletedTimestamp) return@addOnSuccessListener
+
+                        showEligibilityNotification()
+                        db.collection("users").document(userId)
+                            .update("eligibilityNotifiedFor", lastCompletedTimestamp)
+                    }
+            }
+    }
+
+    private fun showEligibilityNotification() {
+        val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+        if (!hasPermission) return
+
+        val intent = Intent(this, ProfileActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 2, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = NotificationCompat.Builder(this, ELIGIBILITY_CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_dialog_alert)
+            .setContentTitle(getString(R.string.eligibility_notification_title))
+            .setContentText(getString(R.string.eligibility_notification_text))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+
+        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        manager.notify(9001, builder.build())
     }
 
     private fun loadRequests() {
@@ -338,6 +403,15 @@ class MainActivity : AppCompatActivity() {
                 description = "إشعارات عند وجود متبرع جاهز بالقرب من مستشفاك"
             }
             manager.createNotificationChannel(donorOfferChannel)
+
+            val eligibilityChannel = NotificationChannel(
+                ELIGIBILITY_CHANNEL_ID,
+                "تذكير التبرع",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "إشعار عند اكتمال 56 يوم من آخر تبرع"
+            }
+            manager.createNotificationChannel(eligibilityChannel)
         }
     }
 
