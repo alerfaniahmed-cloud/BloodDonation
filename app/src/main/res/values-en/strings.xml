@@ -152,6 +152,12 @@
     <string name="already_verified_button">✅ You Verified This</string>
     <string name="case_verified_toast">Thanks, your verification was recorded</string>
 
+    <string name="leaderboard_button">🏆 Donor of the Month</string>
+    <string name="leaderboard_title">🏆 Top Donors This Month</string>
+    <string name="leaderboard_city_prefix">%1$s City</string>
+    <string name="leaderboard_donation_count">%1$d donations</string>
+    <string name="empty_leaderboard">Not enough data yet for this month</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
