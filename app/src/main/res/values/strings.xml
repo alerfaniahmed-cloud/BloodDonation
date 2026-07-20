@@ -145,6 +145,8 @@
     <string name="confirm_resolve_case_message">هل توصلت للمساعدة المطلوبة؟ الحالة بتختفي من قائمة الحالات النشطة</string>
     <string name="help_case_resolved">تم إنهاء الحالة، شكرًا لكل من ساهم 🙏</string>
 
+    <string name="emergency_button">🚨 أحتاج دم الحين</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
