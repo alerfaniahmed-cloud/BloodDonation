@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         val profileButton = findViewById<Button>(R.id.profileButton)
         val hospitalsButton = findViewById<Button>(R.id.hospitalsButton)
         val helpCasesButton = findViewById<Button>(R.id.helpCasesButton)
+        val myOffersButton = findViewById<Button>(R.id.myOffersButton)
         val languageButton = findViewById<Button>(R.id.languageButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -123,6 +124,10 @@ class MainActivity : AppCompatActivity() {
 
         helpCasesButton.setOnClickListener {
             startActivity(Intent(this, HelpCasesActivity::class.java))
+        }
+
+        myOffersButton.setOnClickListener {
+            startActivity(Intent(this, MyDonorOffersActivity::class.java))
         }
     }
 
