@@ -25,6 +25,7 @@ class HelpCaseAdapter(private val cases: MutableList<HelpCase>) :
         val ownerActionsRow: LinearLayout = view.findViewById(R.id.ownerActionsRow)
         val editButton: Button = view.findViewById(R.id.editCaseButton)
         val deleteButton: Button = view.findViewById(R.id.deleteCaseButton)
+        val resolveButton: Button = view.findViewById(R.id.resolveCaseButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpCaseViewHolder {
@@ -101,7 +102,35 @@ class HelpCaseAdapter(private val cases: MutableList<HelpCase>) :
                 }
                 .show()
         }
+
+        holder.resolveButton.setOnClickListener {
+            val context = holder.itemView.context
+            AlertDialog.Builder(context)
+                .setTitle(context.getString(R.string.confirm_resolve_case_title))
+                .setMessage(context.getString(R.string.confirm_resolve_case_message))
+                .setPositiveButton(context.getString(R.string.confirm_button)) { dialog, _ ->
+                    FirebaseFirestore.getInstance().collection("helpCases")
+                        .document(case.id)
+                        .update("resolved", true)
+                        .addOnSuccessListener {
+                            val currentPosition = holder.adapterPosition
+                            if (currentPosition != RecyclerView.NO_POSITION) {
+                                cases.removeAt(currentPosition)
+                                notifyItemRemoved(currentPosition)
+                                Toast.makeText(context, context.getString(R.string.help_case_resolved), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(context, context.getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
+                        }
+                    dialog.dismiss()
+                }
+                .setNegativeButton(context.getString(R.string.cancel_button)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 
     override fun getItemCount(): Int = cases.size
-    }
+}
