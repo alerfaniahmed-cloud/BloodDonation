@@ -11,5 +11,6 @@ data class HelpCase(
     val charityContact: String = "",
     val requesterName: String = "",
     val userId: String = "",
-    val timestamp: Long = 0L
+    val timestamp: Long = 0L,
+    val resolved: Boolean = false
 )
