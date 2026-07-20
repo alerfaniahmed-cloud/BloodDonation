@@ -145,6 +145,8 @@
     <string name="confirm_resolve_case_message">Did you receive the help you needed? The case will be removed from the active list</string>
     <string name="help_case_resolved">Case marked as resolved, thank you to everyone who helped 🙏</string>
 
+    <string name="emergency_button">🚨 I Need Blood Now</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
