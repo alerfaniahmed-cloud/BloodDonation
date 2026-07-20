@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -32,6 +33,9 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var bloodTypeSpinner: Spinner
     private lateinit var captureLocationButton: Button
     private lateinit var locationStatusText: TextView
+    private lateinit var donorBadgeCard: CardView
+    private lateinit var donationCountText: TextView
+    private lateinit var livesSavedText: TextView
 
     private var accountType: String = "individual"
     private var hospitalLat: Double? = null
@@ -39,6 +43,7 @@ class ProfileActivity : AppCompatActivity() {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST = 200
+        private const val LIVES_PER_DONATION = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +59,9 @@ class ProfileActivity : AppCompatActivity() {
         bloodTypeSpinner = findViewById(R.id.bloodTypeSpinner)
         captureLocationButton = findViewById(R.id.captureLocationButton)
         locationStatusText = findViewById(R.id.locationStatusText)
+        donorBadgeCard = findViewById(R.id.donorBadgeCard)
+        donationCountText = findViewById(R.id.donationCountText)
+        livesSavedText = findViewById(R.id.livesSavedText)
         val saveButton = findViewById<Button>(R.id.saveProfileButton)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
 
@@ -160,6 +168,7 @@ class ProfileActivity : AppCompatActivity() {
                         if (index >= 0) {
                             bloodTypeSpinner.setSelection(index)
                         }
+                        loadDonationBadge(userId)
                     }
                 } else {
                     applyAccountTypeUI()
@@ -170,11 +179,37 @@ class ProfileActivity : AppCompatActivity() {
             }
     }
 
+    private fun loadDonationBadge(userId: String) {
+        db.collection("donorOffers")
+            .whereEqualTo("donorId", userId)
+            .get()
+            .addOnSuccessListener { result ->
+                var completedCount = 0
+                for (doc in result) {
+                    val donorConfirmed = doc.getBoolean("donorConfirmed") ?: false
+                    val hospitalConfirmed = doc.getBoolean("hospitalConfirmed") ?: false
+                    if (donorConfirmed || hospitalConfirmed) {
+                        completedCount++
+                    }
+                }
+
+                if (completedCount > 0) {
+                    donorBadgeCard.visibility = View.VISIBLE
+                    donationCountText.text = getString(R.string.donation_count_value, completedCount)
+                    val livesSaved = completedCount * LIVES_PER_DONATION
+                    livesSavedText.text = getString(R.string.lives_saved_text, livesSaved)
+                } else {
+                    donorBadgeCard.visibility = View.GONE
+                }
+            }
+    }
+
     private fun applyAccountTypeUI() {
         if (accountType == "hospital") {
             bloodTypeSpinner.visibility = View.GONE
             captureLocationButton.visibility = View.VISIBLE
             locationStatusText.visibility = View.VISIBLE
+            donorBadgeCard.visibility = View.GONE
         } else {
             bloodTypeSpinner.visibility = View.VISIBLE
             captureLocationButton.visibility = View.GONE
