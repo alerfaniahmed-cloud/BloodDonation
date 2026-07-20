@@ -131,6 +131,10 @@
     <string name="hospital_offer_info_line">%1$s • %2$s • %3$s</string>
     <string name="confirm_received_button">تأكيد الاستلام</string>
 
+    <string name="donor_badge_title">🏅 منقذ حياة</string>
+    <string name="donation_count_value">%1$d تبرع</string>
+    <string name="lives_saved_text">ساهمت في إنقاذ %1$d حياة تقريبًا</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
