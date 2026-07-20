@@ -140,6 +140,11 @@
     <string name="eligibility_notification_title">You\'re eligible to donate again 🩸</string>
     <string name="eligibility_notification_text">56 days have passed since your last donation, you\'re ready to save another life</string>
 
+    <string name="resolve_case_button">✅ Mark as Resolved</string>
+    <string name="confirm_resolve_case_title">Confirm Case Resolution</string>
+    <string name="confirm_resolve_case_message">Did you receive the help you needed? The case will be removed from the active list</string>
+    <string name="help_case_resolved">Case marked as resolved, thank you to everyone who helped 🙏</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
