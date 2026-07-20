@@ -105,9 +105,21 @@
 
             <Button
                 android:id="@+id/myOffersButton"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/my_offers_button"
+                android:textSize="12sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/leaderboardButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/leaderboard_button"
                 android:textSize="12sp"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp" />
