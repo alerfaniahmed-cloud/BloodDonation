@@ -45,7 +45,9 @@ class HelpCasesActivity : AppCompatActivity() {
                 for (doc in result) {
                     val case = doc.toObject(HelpCase::class.java)
                     case.id = doc.id
-                    cases.add(case)
+                    if (!case.resolved) {
+                        cases.add(case)
+                    }
                 }
 
                 if (cases.isEmpty()) {
