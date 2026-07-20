@@ -135,6 +135,11 @@
     <string name="donation_count_value">%1$d donations</string>
     <string name="lives_saved_text">You\'ve helped save approximately %1$d lives</string>
 
+    <string name="eligible_now_text">✅ You\'re eligible to donate again now</string>
+    <string name="eligible_in_days_text">%1$d days left until you can donate again</string>
+    <string name="eligibility_notification_title">You\'re eligible to donate again 🩸</string>
+    <string name="eligibility_notification_text">56 days have passed since your last donation, you\'re ready to save another life</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
