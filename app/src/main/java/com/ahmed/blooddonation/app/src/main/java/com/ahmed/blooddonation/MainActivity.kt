@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bloodTypeFilterSpinner: Spinner
     private lateinit var cityFilterInput: EditText
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var hospitalOffersButton: Button
 
     private var allRequests: List<Request> = listOf()
     private var requestListener: ListenerRegistration? = null
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         bloodTypeFilterSpinner = findViewById(R.id.bloodTypeFilterSpinner)
         cityFilterInput = findViewById(R.id.cityFilterInput)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
+        hospitalOffersButton = findViewById(R.id.hospitalOffersButton)
         val addButton = findViewById<Button>(R.id.addButton)
         val profileButton = findViewById<Button>(R.id.profileButton)
         val hospitalsButton = findViewById<Button>(R.id.hospitalsButton)
@@ -129,6 +131,10 @@ class MainActivity : AppCompatActivity() {
         myOffersButton.setOnClickListener {
             startActivity(Intent(this, MyDonorOffersActivity::class.java))
         }
+
+        hospitalOffersButton.setOnClickListener {
+            startActivity(Intent(this, HospitalDonorOffersActivity::class.java))
+        }
     }
 
     private fun updateLanguageButtonText(button: Button) {
@@ -173,7 +179,10 @@ class MainActivity : AppCompatActivity() {
                     currentUserCity = doc.getString("city")
 
                     if (currentAccountType == "hospital") {
+                        hospitalOffersButton.visibility = View.VISIBLE
                         startDonorOfferListener(userId)
+                    } else {
+                        hospitalOffersButton.visibility = View.GONE
                     }
                 }
             }
