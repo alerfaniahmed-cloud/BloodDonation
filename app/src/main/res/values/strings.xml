@@ -140,6 +140,11 @@
     <string name="eligibility_notification_title">صرت مؤهل تتبرع مرة ثانية 🩸</string>
     <string name="eligibility_notification_text">مرت 56 يوم على آخر تبرع، جسمك جاهز لينقذ حياة ثانية</string>
 
+    <string name="resolve_case_button">✅ تم حل الحالة</string>
+    <string name="confirm_resolve_case_title">تأكيد إنهاء الحالة</string>
+    <string name="confirm_resolve_case_message">هل توصلت للمساعدة المطلوبة؟ الحالة بتختفي من قائمة الحالات النشطة</string>
+    <string name="help_case_resolved">تم إنهاء الحالة، شكرًا لكل من ساهم 🙏</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
