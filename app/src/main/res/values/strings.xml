@@ -152,6 +152,12 @@
     <string name="already_verified_button">✅ تم تأكيدك لهذه الحالة</string>
     <string name="case_verified_toast">شكرًا، تم تسجيل تأكيدك</string>
 
+    <string name="leaderboard_button">🏆 متبرع الشهر</string>
+    <string name="leaderboard_title">🏆 متبرعو الشهر</string>
+    <string name="leaderboard_city_prefix">مدينة %1$s</string>
+    <string name="leaderboard_donation_count">%1$d تبرع</string>
+    <string name="empty_leaderboard">لا توجد بيانات كافية بعد لهذا الشهر</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
