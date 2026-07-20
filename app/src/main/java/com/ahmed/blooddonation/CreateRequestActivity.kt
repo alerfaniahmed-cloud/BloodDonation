@@ -39,6 +39,7 @@ class CreateRequestActivity : AppCompatActivity() {
         urgencySpinner.adapter = urgencyAdapter
 
         editRequestId = intent.getStringExtra("editRequestId")
+        val isEmergency = intent.getBooleanExtra("isEmergency", false)
 
         if (editRequestId != null) {
             submitButton.text = getString(R.string.update_request_button)
@@ -58,6 +59,8 @@ class CreateRequestActivity : AppCompatActivity() {
             cityInput.setText(editCity ?: "")
             phoneInput.setText(editPhone ?: "")
             notesInput.setText(editNotes ?: "")
+        } else if (isEmergency && urgencyLevels.isNotEmpty()) {
+            urgencySpinner.setSelection(0)
         }
 
         submitButton.setOnClickListener {
