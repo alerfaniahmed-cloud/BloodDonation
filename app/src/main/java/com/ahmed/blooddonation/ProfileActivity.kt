@@ -36,6 +36,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var donorBadgeCard: CardView
     private lateinit var donationCountText: TextView
     private lateinit var livesSavedText: TextView
+    private lateinit var eligibilityStatusText: TextView
 
     private var accountType: String = "individual"
     private var hospitalLat: Double? = null
@@ -44,6 +45,8 @@ class ProfileActivity : AppCompatActivity() {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST = 200
         private const val LIVES_PER_DONATION = 3
+        private const val ELIGIBILITY_DAYS = 56
+        private const val MILLIS_PER_DAY = 24L * 60 * 60 * 1000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +65,7 @@ class ProfileActivity : AppCompatActivity() {
         donorBadgeCard = findViewById(R.id.donorBadgeCard)
         donationCountText = findViewById(R.id.donationCountText)
         livesSavedText = findViewById(R.id.livesSavedText)
+        eligibilityStatusText = findViewById(R.id.eligibilityStatusText)
         val saveButton = findViewById<Button>(R.id.saveProfileButton)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
 
@@ -185,11 +189,17 @@ class ProfileActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 var completedCount = 0
+                var lastCompletedTimestamp = 0L
+
                 for (doc in result) {
                     val donorConfirmed = doc.getBoolean("donorConfirmed") ?: false
                     val hospitalConfirmed = doc.getBoolean("hospitalConfirmed") ?: false
                     if (donorConfirmed || hospitalConfirmed) {
                         completedCount++
+                        val completedTimestamp = doc.getLong("completedTimestamp") ?: 0L
+                        if (completedTimestamp > lastCompletedTimestamp) {
+                            lastCompletedTimestamp = completedTimestamp
+                        }
                     }
                 }
 
@@ -198,10 +208,29 @@ class ProfileActivity : AppCompatActivity() {
                     donationCountText.text = getString(R.string.donation_count_value, completedCount)
                     val livesSaved = completedCount * LIVES_PER_DONATION
                     livesSavedText.text = getString(R.string.lives_saved_text, livesSaved)
+                    updateEligibilityText(lastCompletedTimestamp)
                 } else {
                     donorBadgeCard.visibility = View.GONE
                 }
             }
+    }
+
+    private fun updateEligibilityText(lastCompletedTimestamp: Long) {
+        if (lastCompletedTimestamp <= 0L) {
+            eligibilityStatusText.visibility = View.GONE
+            return
+        }
+
+        val eligibleDate = lastCompletedTimestamp + (ELIGIBILITY_DAYS * MILLIS_PER_DAY)
+        val now = System.currentTimeMillis()
+        val remainingDays = ((eligibleDate - now) / MILLIS_PER_DAY).toInt()
+
+        eligibilityStatusText.visibility = View.VISIBLE
+        if (remainingDays <= 0) {
+            eligibilityStatusText.text = getString(R.string.eligible_now_text)
+        } else {
+            eligibilityStatusText.text = getString(R.string.eligible_in_days_text, remainingDays)
+        }
     }
 
     private fun applyAccountTypeUI() {
