@@ -147,6 +147,11 @@
 
     <string name="emergency_button">🚨 I Need Blood Now</string>
 
+    <string name="community_verified_badge">✅ Community Verified</string>
+    <string name="verify_case_button">Verify This Case (%1$d)</string>
+    <string name="already_verified_button">✅ You Verified This</string>
+    <string name="case_verified_toast">Thanks, your verification was recorded</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
