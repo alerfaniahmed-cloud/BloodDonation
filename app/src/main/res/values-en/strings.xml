@@ -122,9 +122,14 @@
     <string name="offer_status_pending">Awaiting hospital contact</string>
     <string name="offer_status_completed">Donation completed ✅</string>
     <string name="confirm_donation_button">I Donated</string>
-    <string name="donation_marked_confirmed">Your donation was recorded, thank you 🙏</string>
+    <string name="donation_marked_confirmed">Donation recorded, thank you 🙏</string>
     <string name="offer_target_hospital_prefix">Hospital: %1$s</string>
     <string name="offer_date_prefix">Date: %1$s</string>
+
+    <string name="hospital_offers_button">Donor Offers</string>
+    <string name="empty_hospital_offers">No donation offers yet</string>
+    <string name="hospital_offer_info_line">%1$s • %2$s • %3$s</string>
+    <string name="confirm_received_button">Confirm Received</string>
 
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
