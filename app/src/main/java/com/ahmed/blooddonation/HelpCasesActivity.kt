@@ -43,11 +43,25 @@ class HelpCasesActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val cases = mutableListOf<HelpCase>()
                 for (doc in result) {
-                    val case = doc.toObject(HelpCase::class.java)
-                    case.id = doc.id
-                    if (!case.resolved) {
-                        cases.add(case)
-                    }
+                    val resolved = doc.getBoolean("resolved") ?: false
+                    if (resolved) continue
+
+                    val case = HelpCase(
+                        id = doc.id,
+                        title = doc.getString("title") ?: "",
+                        description = doc.getString("description") ?: "",
+                        category = doc.getString("category") ?: "",
+                        amountNeeded = doc.getString("amountNeeded") ?: "",
+                        city = doc.getString("city") ?: "",
+                        charityName = doc.getString("charityName") ?: "",
+                        charityContact = doc.getString("charityContact") ?: "",
+                        requesterName = doc.getString("requesterName") ?: "",
+                        userId = doc.getString("userId") ?: "",
+                        timestamp = doc.getLong("timestamp") ?: 0L,
+                        resolved = resolved,
+                        verificationCount = (doc.getLong("verificationCount") ?: 0L).toInt()
+                    )
+                    cases.add(case)
                 }
 
                 if (cases.isEmpty()) {
