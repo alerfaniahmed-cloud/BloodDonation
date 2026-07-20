@@ -21,6 +21,17 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/verifiedBadgeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/community_verified_badge"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#1FAE8E"
+            android:layout_marginTop="4dp"
+            android:visibility="gone" />
+
+        <TextView
             android:id="@+id/caseCategoryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,6 +62,13 @@
             android:layout_height="wrap_content"
             android:text="@string/view_details_button"
             android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/verifyCaseButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginTop="8dp" />
 
         <LinearLayout
             android:id="@+id/ownerActionsRow"
