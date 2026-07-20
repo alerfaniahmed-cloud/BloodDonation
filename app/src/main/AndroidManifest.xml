@@ -60,6 +60,10 @@
             android:name=".HospitalDonorOffersActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".DonorLeaderboardActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
