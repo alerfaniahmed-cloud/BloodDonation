@@ -122,9 +122,14 @@
     <string name="offer_status_pending">بانتظار التواصل مع المستشفى</string>
     <string name="offer_status_completed">تم التبرع ✅</string>
     <string name="confirm_donation_button">تبرعت فعلاً</string>
-    <string name="donation_marked_confirmed">تم تسجيل تبرعك، شكرًا لك 🙏</string>
+    <string name="donation_marked_confirmed">تم تسجيل التبرع، شكرًا لك 🙏</string>
     <string name="offer_target_hospital_prefix">المستشفى: %1$s</string>
     <string name="offer_date_prefix">التاريخ: %1$s</string>
+
+    <string name="hospital_offers_button">طلبات المتبرعين</string>
+    <string name="empty_hospital_offers">لا توجد عروض تبرع حالياً</string>
+    <string name="hospital_offer_info_line">%1$s • %2$s • %3$s</string>
+    <string name="confirm_received_button">تأكيد الاستلام</string>
 
     <string-array name="help_case_categories">
         <item>علاج</item>
