@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         hospitalOffersButton = findViewById(R.id.hospitalOffersButton)
         val addButton = findViewById<Button>(R.id.addButton)
+        val emergencyButton = findViewById<Button>(R.id.emergencyButton)
         val profileButton = findViewById<Button>(R.id.profileButton)
         val hospitalsButton = findViewById<Button>(R.id.hospitalsButton)
         val helpCasesButton = findViewById<Button>(R.id.helpCasesButton)
@@ -117,6 +118,12 @@ class MainActivity : AppCompatActivity() {
 
         addButton.setOnClickListener {
             startActivity(Intent(this, CreateRequestActivity::class.java))
+        }
+
+        emergencyButton.setOnClickListener {
+            val intent = Intent(this, CreateRequestActivity::class.java)
+            intent.putExtra("isEmergency", true)
+            startActivity(intent)
         }
 
         profileButton.setOnClickListener {
