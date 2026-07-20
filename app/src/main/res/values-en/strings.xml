@@ -131,6 +131,10 @@
     <string name="hospital_offer_info_line">%1$s • %2$s • %3$s</string>
     <string name="confirm_received_button">Confirm Received</string>
 
+    <string name="donor_badge_title">🏅 Life Saver</string>
+    <string name="donation_count_value">%1$d donations</string>
+    <string name="lives_saved_text">You\'ve helped save approximately %1$d lives</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
