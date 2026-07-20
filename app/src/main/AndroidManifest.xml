@@ -52,6 +52,10 @@
             android:name=".CreateHelpCaseActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".MyDonorOffersActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
