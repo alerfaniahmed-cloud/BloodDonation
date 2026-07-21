@@ -170,6 +170,36 @@
     <string name="certificate_lives_saved">ساهمت في إنقاذ %1$d حياة تقريبًا</string>
     <string name="certificate_share_text">🎖️ حصلت على شهادة منقذ حياة بـ %1$d تبرع عبر تطبيق رجا! انضم وساهم بإنقاذ حياة 🩸</string>
 
+    <string name="circle_button">👨‍👩‍👧‍👦 دائرتي</string>
+    <string name="circle_title">دائرة العائلة</string>
+    <string name="create_circle_label">إنشاء دائرة جديدة</string>
+    <string name="circle_name_hint">اسم الدائرة (مثال: عائلة آل فلان)</string>
+    <string name="create_circle_button">إنشاء الدائرة</string>
+    <string name="join_circle_label">الانضمام لدائرة موجودة</string>
+    <string name="circle_code_hint">أدخل رمز الدعوة</string>
+    <string name="join_circle_button">انضمام</string>
+    <string name="circle_name_required">الرجاء إدخال اسم الدائرة</string>
+    <string name="circle_created">تم إنشاء الدائرة بنجاح</string>
+    <string name="circle_code_required">الرجاء إدخال رمز الدعوة</string>
+    <string name="circle_code_invalid">رمز الدعوة غير صحيح</string>
+    <string name="circle_joined">انضممت للدائرة بنجاح</string>
+    <string name="circle_invite_code_prefix">رمز الدعوة: %1$s</string>
+    <string name="share_invite_code_button">📤 مشاركة رمز الدعوة</string>
+    <string name="circle_invite_share_title">دعوة لدائرة العائلة</string>
+    <string name="circle_share_text">🩸 انضم لدائرة \"%1$s\" على تطبيق رجا! استخدم رمز الدعوة: %2$s</string>
+    <string name="circle_emergency_button">🚨 نداء طوارئ لدائرتي</string>
+    <string name="confirm_circle_alert_title">تأكيد النداء</string>
+    <string name="confirm_circle_alert_message">راح يوصل إشعار فوري لكل أفراد دائرتك، متأكد تبي ترسله؟</string>
+    <string name="circle_alert_sent">تم إرسال النداء لدائرتك</string>
+    <string name="circle_members_label">أعضاء الدائرة</string>
+    <string name="empty_circle_members">لا يوجد أعضاء بعد</string>
+    <string name="leave_circle_button">مغادرة الدائرة</string>
+    <string name="confirm_leave_circle_title">تأكيد المغادرة</string>
+    <string name="confirm_leave_circle_message">هل أنت متأكد من مغادرة هذه الدائرة؟</string>
+    <string name="circle_left">تم مغادرة الدائرة</string>
+    <string name="circle_alert_notification_title">🚨 نداء طوارئ من دائرتك</string>
+    <string name="circle_alert_notification_text">%1$s يحتاج %2$s في %3$s</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
