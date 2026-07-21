@@ -163,6 +163,13 @@
     <string name="share_request_button">📤 مشاركة</string>
     <string name="share_request_text">🩸 نداء تبرع بالدم عبر تطبيق رجا\nفصيلة الدم المطلوبة: %1$s\nالمدينة: %2$s\nدرجة الاستعجال: %3$s\nللتواصل: %4$s</string>
 
+    <string name="share_certificate_button">🎖️ مشاركة شهادتي</string>
+    <string name="certificate_title">شهادة منقذ حياة</string>
+    <string name="certificate_subtitle">تكريمًا لجهودك في التبرع بالدم</string>
+    <string name="certificate_donations_label">مرة تبرع</string>
+    <string name="certificate_lives_saved">ساهمت في إنقاذ %1$d حياة تقريبًا</string>
+    <string name="certificate_share_text">🎖️ حصلت على شهادة منقذ حياة بـ %1$d تبرع عبر تطبيق رجا! انضم وساهم بإنقاذ حياة 🩸</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
