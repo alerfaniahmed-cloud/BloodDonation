@@ -12,5 +12,6 @@ data class Request(
     var userId: String = "",
     var requesterType: String = "individual",
     var lat: Double? = null,
-    var lng: Double? = null
+    var lng: Double? = null,
+    @JvmField @Transient var distanceKm: Double? = null
 )
