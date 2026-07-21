@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,9 @@ class HospitalDonorOfferAdapter(
         val donorInfoText: TextView = view.findViewById(R.id.hospitalOfferDonorInfoText)
         val dateText: TextView = view.findViewById(R.id.hospitalOfferDateText)
         val statusText: TextView = view.findViewById(R.id.hospitalOfferStatusText)
+        val prayerInputLayout: View = view.findViewById(R.id.prayerInputLayout)
+        val prayerInput: EditText = view.findViewById(R.id.prayerInput)
+        val existingPrayerText: TextView = view.findViewById(R.id.existingPrayerText)
         val confirmButton: Button = view.findViewById(R.id.confirmReceivedButton)
     }
 
@@ -47,23 +51,39 @@ class HospitalDonorOfferAdapter(
         val dateStr = dateFormat.format(Date(offer.timestamp))
         holder.dateText.text = context.getString(R.string.offer_date_prefix, dateStr)
 
-        if (offer.hospitalConfirmed || offer.donorConfirmed) {
+        val isCompleted = offer.hospitalConfirmed || offer.donorConfirmed
+
+        if (isCompleted) {
             holder.statusText.text = context.getString(R.string.offer_status_completed)
             holder.confirmButton.visibility = View.GONE
+            holder.prayerInputLayout.visibility = View.GONE
+
+            if (offer.prayerMessage.isNotBlank()) {
+                holder.existingPrayerText.visibility = View.VISIBLE
+                holder.existingPrayerText.text = context.getString(R.string.prayer_sent_prefix, offer.prayerMessage)
+            } else {
+                holder.existingPrayerText.visibility = View.GONE
+            }
         } else {
             holder.statusText.text = context.getString(R.string.offer_status_pending)
             holder.confirmButton.visibility = View.VISIBLE
+            holder.prayerInputLayout.visibility = View.VISIBLE
+            holder.existingPrayerText.visibility = View.GONE
         }
 
         holder.confirmButton.setOnClickListener {
+            val prayerText = holder.prayerInput.text.toString().trim()
+            val updates = mutableMapOf<String, Any>(
+                "hospitalConfirmed" to true,
+                "completedTimestamp" to System.currentTimeMillis()
+            )
+            if (prayerText.isNotBlank()) {
+                updates["prayerMessage"] = prayerText
+            }
+
             FirebaseFirestore.getInstance().collection("donorOffers")
                 .document(offer.id)
-                .update(
-                    mapOf(
-                        "hospitalConfirmed" to true,
-                        "completedTimestamp" to System.currentTimeMillis()
-                    )
-                )
+                .update(updates)
                 .addOnSuccessListener {
                     Toast.makeText(context, context.getString(R.string.donation_marked_confirmed), Toast.LENGTH_SHORT).show()
                     onOfferUpdated()
