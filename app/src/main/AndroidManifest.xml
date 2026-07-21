@@ -64,6 +64,10 @@
             android:name=".DonorLeaderboardActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".CircleActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
