@@ -200,6 +200,10 @@
     <string name="circle_alert_notification_title">🚨 نداء طوارئ من دائرتك</string>
     <string name="circle_alert_notification_text">%1$s يحتاج %2$s في %3$s</string>
 
+    <string name="prayer_input_hint">اكتب دعاء للمتبرع (اختياري)</string>
+    <string name="prayer_sent_prefix">🤲 دعاؤك: %1$s</string>
+    <string name="prayer_received_prefix">🤲 دعاء لك: %1$s</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
