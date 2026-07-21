@@ -44,6 +44,33 @@
             android:textStyle="bold"
             android:layout_marginTop="8dp" />
 
+        <LinearLayout
+            android:id="@+id/prayerInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/prayerInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prayer_input_hint"
+                android:inputType="textMultiLine"
+                android:minLines="2" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/existingPrayerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="#1FAE8E"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/confirmReceivedButton"
             android:layout_width="match_parent"
