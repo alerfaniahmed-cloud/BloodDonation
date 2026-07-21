@@ -12,5 +12,6 @@ data class DonorOffer(
     val timestamp: Long = 0L,
     val donorConfirmed: Boolean = false,
     val hospitalConfirmed: Boolean = false,
-    val completedTimestamp: Long = 0L
+    val completedTimestamp: Long = 0L,
+    val prayerMessage: String = ""
 )
