@@ -74,12 +74,29 @@
             android:textColor="#666666"
             android:layout_marginTop="4dp" />
 
-        <Button
-            android:id="@+id/contactButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="تواصل"
-            android:layout_marginTop="12dp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:id="@+id/contactButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="تواصل" />
+
+            <Button
+                android:id="@+id/shareButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="@string/share_request_button" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ownerActionsLayout"
