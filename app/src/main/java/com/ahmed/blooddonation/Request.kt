@@ -10,5 +10,7 @@ data class Request(
     var requesterName: String = "",
     var timestamp: Long = 0L,
     var userId: String = "",
-    var requesterType: String = "individual"
+    var requesterType: String = "individual",
+    var lat: Double? = null,
+    var lng: Double? = null
 )
