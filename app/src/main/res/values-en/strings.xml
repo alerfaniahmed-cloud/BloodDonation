@@ -200,6 +200,10 @@
     <string name="circle_alert_notification_title">🚨 Emergency Alert from Your Circle</string>
     <string name="circle_alert_notification_text">%1$s needs %2$s in %3$s</string>
 
+    <string name="prayer_input_hint">Write a prayer for the donor (optional)</string>
+    <string name="prayer_sent_prefix">🤲 Your prayer: %1$s</string>
+    <string name="prayer_received_prefix">🤲 A prayer for you: %1$s</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
