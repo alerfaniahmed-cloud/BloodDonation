@@ -62,6 +62,22 @@
             android:hint="@string/notes_hint"
             android:inputType="textMultiLine"
             android:minLines="3"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/attachLocationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/attach_location_button"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/attachLocationStatusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#666666"
+            android:visibility="gone"
             android:layout_marginBottom="24dp" />
 
         <Button
