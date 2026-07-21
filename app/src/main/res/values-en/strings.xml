@@ -170,6 +170,36 @@
     <string name="certificate_lives_saved">You\'ve helped save approximately %1$d lives</string>
     <string name="certificate_share_text">🎖️ I earned a Life Saver certificate with %1$d donations via Raja app! Join and help save a life 🩸</string>
 
+    <string name="circle_button">👨‍👩‍👧‍👦 My Circle</string>
+    <string name="circle_title">Family Circle</string>
+    <string name="create_circle_label">Create a New Circle</string>
+    <string name="circle_name_hint">Circle name (e.g. The Smith Family)</string>
+    <string name="create_circle_button">Create Circle</string>
+    <string name="join_circle_label">Join an Existing Circle</string>
+    <string name="circle_code_hint">Enter invite code</string>
+    <string name="join_circle_button">Join</string>
+    <string name="circle_name_required">Please enter a circle name</string>
+    <string name="circle_created">Circle created successfully</string>
+    <string name="circle_code_required">Please enter the invite code</string>
+    <string name="circle_code_invalid">Invalid invite code</string>
+    <string name="circle_joined">Joined the circle successfully</string>
+    <string name="circle_invite_code_prefix">Invite code: %1$s</string>
+    <string name="share_invite_code_button">📤 Share Invite Code</string>
+    <string name="circle_invite_share_title">Family Circle Invite</string>
+    <string name="circle_share_text">🩸 Join the \"%1$s\" circle on Raja app! Use invite code: %2$s</string>
+    <string name="circle_emergency_button">🚨 Emergency Alert to My Circle</string>
+    <string name="confirm_circle_alert_title">Confirm Alert</string>
+    <string name="confirm_circle_alert_message">This will send an instant notification to all your circle members, are you sure you want to send it?</string>
+    <string name="circle_alert_sent">Alert sent to your circle</string>
+    <string name="circle_members_label">Circle Members</string>
+    <string name="empty_circle_members">No members yet</string>
+    <string name="leave_circle_button">Leave Circle</string>
+    <string name="confirm_leave_circle_title">Confirm Leaving</string>
+    <string name="confirm_leave_circle_message">Are you sure you want to leave this circle?</string>
+    <string name="circle_left">Left the circle</string>
+    <string name="circle_alert_notification_title">🚨 Emergency Alert from Your Circle</string>
+    <string name="circle_alert_notification_text">%1$s needs %2$s in %3$s</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
