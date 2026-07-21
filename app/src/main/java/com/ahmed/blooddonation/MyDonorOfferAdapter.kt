@@ -21,6 +21,7 @@ class MyDonorOfferAdapter(
         val hospitalText: TextView = view.findViewById(R.id.offerHospitalText)
         val dateText: TextView = view.findViewById(R.id.offerDateText)
         val statusText: TextView = view.findViewById(R.id.offerStatusText)
+        val prayerReceivedText: TextView = view.findViewById(R.id.prayerReceivedText)
         val confirmButton: Button = view.findViewById(R.id.confirmDonationButton)
     }
 
@@ -43,9 +44,17 @@ class MyDonorOfferAdapter(
         if (offer.hospitalConfirmed || offer.donorConfirmed) {
             holder.statusText.text = context.getString(R.string.offer_status_completed)
             holder.confirmButton.visibility = View.GONE
+
+            if (offer.prayerMessage.isNotBlank()) {
+                holder.prayerReceivedText.visibility = View.VISIBLE
+                holder.prayerReceivedText.text = context.getString(R.string.prayer_received_prefix, offer.prayerMessage)
+            } else {
+                holder.prayerReceivedText.visibility = View.GONE
+            }
         } else {
             holder.statusText.text = context.getString(R.string.offer_status_pending)
             holder.confirmButton.visibility = View.VISIBLE
+            holder.prayerReceivedText.visibility = View.GONE
         }
 
         holder.confirmButton.setOnClickListener {
