@@ -158,6 +158,8 @@
     <string name="leaderboard_donation_count">%1$d donations</string>
     <string name="empty_leaderboard">Not enough data yet for this month</string>
 
+    <string name="attach_location_button">📍 Attach My Location (optional, sorts request by proximity)</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
