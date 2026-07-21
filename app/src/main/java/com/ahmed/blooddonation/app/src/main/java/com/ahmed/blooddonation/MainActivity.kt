@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     private var allRequests: List<Request> = listOf()
     private var requestListener: ListenerRegistration? = null
     private var donorOfferListener: ListenerRegistration? = null
+    private var circleAlertListener: ListenerRegistration? = null
     private var screenOpenTime: Long = 0L
 
     private var currentUserBloodType: String? = null
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         private const val CHANNEL_ID = "blood_requests_channel"
         private const val DONOR_OFFER_CHANNEL_ID = "donor_offer_channel"
         private const val ELIGIBILITY_CHANNEL_ID = "donation_eligibility_channel"
+        private const val CIRCLE_ALERT_CHANNEL_ID = "circle_alert_channel"
         private const val NOTIFICATION_PERMISSION_REQUEST = 300
         private const val LOCATION_PERMISSION_REQUEST = 600
         private const val ELIGIBILITY_DAYS = 56
@@ -85,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         val helpCasesButton = findViewById<Button>(R.id.helpCasesButton)
         val myOffersButton = findViewById<Button>(R.id.myOffersButton)
         val leaderboardButton = findViewById<Button>(R.id.leaderboardButton)
+        val circleButton = findViewById<Button>(R.id.circleButton)
         val languageButton = findViewById<Button>(R.id.languageButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -151,6 +154,10 @@ class MainActivity : AppCompatActivity() {
 
         leaderboardButton.setOnClickListener {
             startActivity(Intent(this, DonorLeaderboardActivity::class.java))
+        }
+
+        circleButton.setOnClickListener {
+            startActivity(Intent(this, CircleActivity::class.java))
         }
 
         hospitalOffersButton.setOnClickListener {
@@ -249,6 +256,8 @@ class MainActivity : AppCompatActivity() {
         requestListener = null
         donorOfferListener?.remove()
         donorOfferListener = null
+        circleAlertListener?.remove()
+        circleAlertListener = null
     }
 
     private fun loadCurrentUserProfile() {
@@ -259,6 +268,7 @@ class MainActivity : AppCompatActivity() {
                     currentAccountType = doc.getString("accountType") ?: "individual"
                     currentUserBloodType = doc.getString("bloodType")
                     currentUserCity = doc.getString("city")
+                    val circleId = doc.getString("circleId") ?: ""
 
                     if (currentAccountType == "hospital") {
                         hospitalOffersButton.visibility = View.VISIBLE
@@ -267,8 +277,60 @@ class MainActivity : AppCompatActivity() {
                         hospitalOffersButton.visibility = View.GONE
                         checkDonationEligibilityReminder(userId)
                     }
+
+                    if (circleId.isNotBlank()) {
+                        startCircleAlertListener(circleId, userId)
+                    }
                 }
             }
+    }
+
+    private fun startCircleAlertListener(circleId: String, myUserId: String) {
+        circleAlertListener = db.collection("circleAlerts")
+            .whereEqualTo("circleId", circleId)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null || snapshot == null) return@addSnapshotListener
+
+                for (change in snapshot.documentChanges) {
+                    if (change.type == DocumentChange.Type.ADDED) {
+                        val senderId = change.document.getString("senderId") ?: ""
+                        val timestamp = change.document.getLong("timestamp") ?: 0L
+                        if (senderId != myUserId && timestamp > screenOpenTime) {
+                            val senderName = change.document.getString("senderName") ?: ""
+                            val bloodType = change.document.getString("bloodType") ?: ""
+                            val city = change.document.getString("city") ?: ""
+                            showCircleAlertNotification(senderName, bloodType, city)
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun showCircleAlertNotification(senderName: String, bloodType: String, city: String) {
+        val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+        if (!hasPermission) return
+
+        val intent = Intent(this, CircleActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 3, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = NotificationCompat.Builder(this, CIRCLE_ALERT_CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_dialog_alert)
+            .setContentTitle(getString(R.string.circle_alert_notification_title))
+            .setContentText(getString(R.string.circle_alert_notification_text, senderName, bloodType, city))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+
+        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        manager.notify(9002, builder.build())
     }
 
     private fun checkDonationEligibilityReminder(userId: String) {
@@ -491,6 +553,15 @@ class MainActivity : AppCompatActivity() {
                 description = "إشعار عند اكتمال 56 يوم من آخر تبرع"
             }
             manager.createNotificationChannel(eligibilityChannel)
+
+            val circleAlertChannel = NotificationChannel(
+                CIRCLE_ALERT_CHANNEL_ID,
+                "نداءات دائرة العائلة",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "إشعار عند نداء طوارئ من أحد أفراد دائرتك"
+            }
+            manager.createNotificationChannel(circleAlertChannel)
         }
     }
 
