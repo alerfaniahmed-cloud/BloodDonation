@@ -37,10 +37,12 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var donationCountText: TextView
     private lateinit var livesSavedText: TextView
     private lateinit var eligibilityStatusText: TextView
+    private lateinit var shareCertificateButton: Button
 
     private var accountType: String = "individual"
     private var hospitalLat: Double? = null
     private var hospitalLng: Double? = null
+    private var currentDonationCount: Int = 0
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST = 200
@@ -66,6 +68,7 @@ class ProfileActivity : AppCompatActivity() {
         donationCountText = findViewById(R.id.donationCountText)
         livesSavedText = findViewById(R.id.livesSavedText)
         eligibilityStatusText = findViewById(R.id.eligibilityStatusText)
+        shareCertificateButton = findViewById(R.id.shareCertificateButton)
         val saveButton = findViewById<Button>(R.id.saveProfileButton)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
 
@@ -77,6 +80,13 @@ class ProfileActivity : AppCompatActivity() {
 
         captureLocationButton.setOnClickListener {
             requestLocationAndCapture()
+        }
+
+        shareCertificateButton.setOnClickListener {
+            val name = nameInput.text.toString().trim().ifEmpty {
+                getString(R.string.default_requester_name)
+            }
+            CertificateGenerator.generateAndShare(this, name, currentDonationCount)
         }
 
         saveButton.setOnClickListener {
@@ -202,6 +212,8 @@ class ProfileActivity : AppCompatActivity() {
                         }
                     }
                 }
+
+                currentDonationCount = completedCount
 
                 if (completedCount > 0) {
                     donorBadgeCard.visibility = View.VISIBLE
