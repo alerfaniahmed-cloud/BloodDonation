@@ -163,6 +163,13 @@
     <string name="share_request_button">📤 Share</string>
     <string name="share_request_text">🩸 Blood donation request via Raja app\nBlood type needed: %1$s\nCity: %2$s\nUrgency: %3$s\nContact: %4$s</string>
 
+    <string name="share_certificate_button">🎖️ Share My Certificate</string>
+    <string name="certificate_title">Life Saver Certificate</string>
+    <string name="certificate_subtitle">In recognition of your blood donation efforts</string>
+    <string name="certificate_donations_label">donations</string>
+    <string name="certificate_lives_saved">You\'ve helped save approximately %1$d lives</string>
+    <string name="certificate_share_text">🎖️ I earned a Life Saver certificate with %1$d donations via Raja app! Join and help save a life 🩸</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
