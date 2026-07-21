@@ -158,6 +158,8 @@
     <string name="leaderboard_donation_count">%1$d تبرع</string>
     <string name="empty_leaderboard">لا توجد بيانات كافية بعد لهذا الشهر</string>
 
+    <string name="attach_location_button">📍 إرفاق موقعي (اختياري، لترتيب النداء حسب القرب)</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
