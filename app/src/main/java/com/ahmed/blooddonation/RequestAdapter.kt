@@ -20,6 +20,7 @@ class RequestAdapter(private val requests: List<Request>) :
         val bloodType: TextView = view.findViewById(R.id.bloodTypeText)
         val urgency: TextView = view.findViewById(R.id.urgencyText)
         val city: TextView = view.findViewById(R.id.cityText)
+        val distanceText: TextView = view.findViewById(R.id.distanceText)
         val requesterName: TextView = view.findViewById(R.id.requesterNameText)
         val notes: TextView = view.findViewById(R.id.notesText)
         val contactButton: Button = view.findViewById(R.id.contactButton)
@@ -39,6 +40,14 @@ class RequestAdapter(private val requests: List<Request>) :
         holder.bloodType.text = request.bloodType
         holder.urgency.text = request.urgency
         holder.city.text = "المدينة: ${request.city}"
+
+        val distance = request.distanceKm
+        if (distance != null) {
+            holder.distanceText.visibility = View.VISIBLE
+            holder.distanceText.text = "📍 يبعد عنك ${String.format("%.1f", distance)} كم"
+        } else {
+            holder.distanceText.visibility = View.GONE
+        }
 
         if (request.requesterType == "hospital") {
             holder.requesterName.text = "🏥 مستشفى رسمي - ${request.requesterName}"
