@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -50,12 +52,15 @@ class MainActivity : AppCompatActivity() {
     private var currentUserBloodType: String? = null
     private var currentUserCity: String? = null
     private var currentAccountType: String = "individual"
+    private var myLat: Double? = null
+    private var myLng: Double? = null
 
     companion object {
         private const val CHANNEL_ID = "blood_requests_channel"
         private const val DONOR_OFFER_CHANNEL_ID = "donor_offer_channel"
         private const val ELIGIBILITY_CHANNEL_ID = "donation_eligibility_channel"
         private const val NOTIFICATION_PERMISSION_REQUEST = 300
+        private const val LOCATION_PERMISSION_REQUEST = 600
         private const val ELIGIBILITY_DAYS = 56
         private const val MILLIS_PER_DAY = 24L * 60 * 60 * 1000
     }
@@ -115,6 +120,7 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
         requestNotificationPermission()
+        requestLocationSilently()
         loadCurrentUserProfile()
 
         addButton.setOnClickListener {
@@ -150,6 +156,67 @@ class MainActivity : AppCompatActivity() {
         hospitalOffersButton.setOnClickListener {
             startActivity(Intent(this, HospitalDonorOffersActivity::class.java))
         }
+    }
+
+    private fun requestLocationSilently() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            captureMyLocation()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION_REQUEST
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                captureMyLocation()
+            }
+        }
+    }
+
+    private fun captureMyLocation() {
+        try {
+            val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+            val providers = locationManager.getProviders(true)
+
+            var bestLocation: Location? = null
+            for (provider in providers) {
+                val location = locationManager.getLastKnownLocation(provider) ?: continue
+                if (bestLocation == null || location.accuracy < bestLocation!!.accuracy) {
+                    bestLocation = location
+                }
+            }
+
+            if (bestLocation != null) {
+                myLat = bestLocation.latitude
+                myLng = bestLocation.longitude
+                applyFilters()
+            }
+        } catch (e: SecurityException) {
+            // ما تم منح الصلاحية، القائمة تبقى مرتبة زمنيًا
+        }
+    }
+
+    private fun distanceInKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        val earthRadius = 6371.0
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        return earthRadius * c
     }
 
     private fun updateLanguageButtonText(button: Button) {
@@ -446,10 +513,24 @@ class MainActivity : AppCompatActivity() {
         val selectedBloodType = bloodTypeFilterSpinner.selectedItem?.toString() ?: ""
         val cityQuery = cityFilterInput.text.toString().trim()
 
-        val filtered = allRequests.filter { request ->
+        var filtered = allRequests.filter { request ->
             val matchesBloodType = selectedPosition == 0 || request.bloodType == selectedBloodType
             val matchesCity = cityQuery.isEmpty() || request.city.contains(cityQuery, ignoreCase = true)
             matchesBloodType && matchesCity
+        }
+
+        val lat = myLat
+        val lng = myLng
+        if (lat != null && lng != null) {
+            filtered = filtered.sortedWith(compareBy { request ->
+                val requestLat = request.lat
+                val requestLng = request.lng
+                if (requestLat != null && requestLng != null) {
+                    distanceInKm(lat, lng, requestLat, requestLng)
+                } else {
+                    Double.MAX_VALUE
+                }
+            })
         }
 
         if (filtered.isEmpty()) {
