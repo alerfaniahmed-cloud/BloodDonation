@@ -160,6 +160,9 @@
 
     <string name="attach_location_button">📍 إرفاق موقعي (اختياري، لترتيب النداء حسب القرب)</string>
 
+    <string name="share_request_button">📤 مشاركة</string>
+    <string name="share_request_text">🩸 نداء تبرع بالدم عبر تطبيق رجا\nفصيلة الدم المطلوبة: %1$s\nالمدينة: %2$s\nدرجة الاستعجال: %3$s\nللتواصل: %4$s</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
