@@ -24,6 +24,7 @@ class RequestAdapter(private val requests: List<Request>) :
         val requesterName: TextView = view.findViewById(R.id.requesterNameText)
         val notes: TextView = view.findViewById(R.id.notesText)
         val contactButton: Button = view.findViewById(R.id.contactButton)
+        val shareButton: Button = view.findViewById(R.id.shareButton)
         val ownerActionsLayout: LinearLayout = view.findViewById(R.id.ownerActionsLayout)
         val editButton: Button = view.findViewById(R.id.editButton)
         val deleteButton: Button = view.findViewById(R.id.deleteButton)
@@ -90,6 +91,21 @@ class RequestAdapter(private val requests: List<Request>) :
                     }
                 }
                 .show()
+        }
+
+        holder.shareButton.setOnClickListener {
+            val context = holder.itemView.context
+            val shareText = context.getString(
+                R.string.share_request_text,
+                request.bloodType,
+                request.city,
+                request.urgency,
+                request.contactPhone
+            )
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText)
+            context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_request_button)))
         }
 
         holder.deleteButton.setOnClickListener {
