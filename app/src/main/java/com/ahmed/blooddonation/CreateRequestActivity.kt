@@ -1,12 +1,19 @@
 package com.ahmed.blooddonation
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -15,6 +22,13 @@ class CreateRequestActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private var editRequestId: String? = null
+    private var capturedLat: Double? = null
+    private var capturedLng: Double? = null
+    private lateinit var attachLocationStatusText: TextView
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST = 500
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +43,8 @@ class CreateRequestActivity : AppCompatActivity() {
         val phoneInput = findViewById<EditText>(R.id.phoneInput)
         val notesInput = findViewById<EditText>(R.id.notesInput)
         val submitButton = findViewById<Button>(R.id.submitButton)
+        val attachLocationButton = findViewById<Button>(R.id.attachLocationButton)
+        attachLocationStatusText = findViewById(R.id.attachLocationStatusText)
 
         val bloodTypes = arrayOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
         val bloodAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bloodTypes)
@@ -63,6 +79,10 @@ class CreateRequestActivity : AppCompatActivity() {
             urgencySpinner.setSelection(0)
         }
 
+        attachLocationButton.setOnClickListener {
+            requestLocationAndCapture()
+        }
+
         submitButton.setOnClickListener {
             val city = cityInput.text.toString().trim()
             val phone = phoneInput.text.toString().trim()
@@ -83,6 +103,10 @@ class CreateRequestActivity : AppCompatActivity() {
                     "contactPhone" to phone,
                     "notes" to notes
                 )
+                if (capturedLat != null && capturedLng != null) {
+                    updates["lat"] = capturedLat!!
+                    updates["lng"] = capturedLng!!
+                }
 
                 db.collection("requests").document(editRequestId!!)
                     .update(updates)
@@ -111,6 +135,10 @@ class CreateRequestActivity : AppCompatActivity() {
                             "userId" to (userId ?: ""),
                             "requesterType" to requesterType
                         )
+                        if (capturedLat != null && capturedLng != null) {
+                            request["lat"] = capturedLat!!
+                            request["lng"] = capturedLng!!
+                        }
 
                         db.collection("requests")
                             .add(request)
@@ -123,6 +151,66 @@ class CreateRequestActivity : AppCompatActivity() {
                             }
                     }
             }
+        }
+    }
+
+    private fun requestLocationAndCapture() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION_REQUEST
+            )
+            return
+        }
+        captureCurrentLocation()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                captureCurrentLocation()
+            } else {
+                Toast.makeText(this, getString(R.string.location_permission_required), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun captureCurrentLocation() {
+        try {
+            val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+            val providers = locationManager.getProviders(true)
+
+            var bestLocation: Location? = null
+            for (provider in providers) {
+                val location = locationManager.getLastKnownLocation(provider) ?: continue
+                if (bestLocation == null || location.accuracy < bestLocation!!.accuracy) {
+                    bestLocation = location
+                }
+            }
+
+            if (bestLocation != null) {
+                capturedLat = bestLocation.latitude
+                capturedLng = bestLocation.longitude
+                attachLocationStatusText.visibility = android.view.View.VISIBLE
+                attachLocationStatusText.text = getString(
+                    R.string.location_captured_prefix,
+                    bestLocation.latitude.toString(),
+                    bestLocation.longitude.toString()
+                )
+                Toast.makeText(this, getString(R.string.location_saved_current), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(R.string.location_capture_failed), Toast.LENGTH_LONG).show()
+            }
+        } catch (e: SecurityException) {
+            Toast.makeText(this, getString(R.string.location_permission_error), Toast.LENGTH_SHORT).show()
         }
     }
 }
