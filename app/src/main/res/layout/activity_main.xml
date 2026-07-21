@@ -133,6 +133,23 @@
             android:layout_marginTop="6dp">
 
             <Button
+                android:id="@+id/circleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/circle_button"
+                android:textSize="12sp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <Button
                 android:id="@+id/hospitalOffersButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
