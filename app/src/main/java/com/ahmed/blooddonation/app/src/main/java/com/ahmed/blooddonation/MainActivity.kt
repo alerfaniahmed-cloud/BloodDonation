@@ -522,15 +522,16 @@ class MainActivity : AppCompatActivity() {
         val lat = myLat
         val lng = myLng
         if (lat != null && lng != null) {
-            filtered = filtered.sortedWith(compareBy { request ->
+            filtered.forEach { request ->
                 val requestLat = request.lat
                 val requestLng = request.lng
-                if (requestLat != null && requestLng != null) {
+                request.distanceKm = if (requestLat != null && requestLng != null) {
                     distanceInKm(lat, lng, requestLat, requestLng)
                 } else {
-                    Double.MAX_VALUE
+                    null
                 }
-            })
+            }
+            filtered = filtered.sortedWith(compareBy { it.distanceKm ?: Double.MAX_VALUE })
         }
 
         if (filtered.isEmpty()) {
