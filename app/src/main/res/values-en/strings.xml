@@ -160,6 +160,9 @@
 
     <string name="attach_location_button">📍 Attach My Location (optional, sorts request by proximity)</string>
 
+    <string name="share_request_button">📤 Share</string>
+    <string name="share_request_text">🩸 Blood donation request via Raja app\nBlood type needed: %1$s\nCity: %2$s\nUrgency: %3$s\nContact: %4$s</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
