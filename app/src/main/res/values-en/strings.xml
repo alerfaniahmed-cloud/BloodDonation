@@ -204,6 +204,8 @@
     <string name="prayer_sent_prefix">🤲 Your prayer: %1$s</string>
     <string name="prayer_received_prefix">🤲 A prayer for you: %1$s</string>
 
+    <string name="menu_subtitle">Together, we save lives</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
