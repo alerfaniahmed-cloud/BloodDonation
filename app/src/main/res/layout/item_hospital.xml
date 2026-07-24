@@ -27,12 +27,29 @@
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
-        <Button
-            android:id="@+id/hospitalContactButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/contact_button"
-            android:layout_marginTop="12dp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:id="@+id/hospitalContactButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="@string/contact_button" />
+
+            <Button
+                android:id="@+id/hospitalLocationButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="@string/hospital_location_button" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
