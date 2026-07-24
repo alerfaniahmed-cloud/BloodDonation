@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class HospitalAdapter(private val hospitals: List<Hospital>) :
@@ -17,6 +18,7 @@ class HospitalAdapter(private val hospitals: List<Hospital>) :
         val name: TextView = view.findViewById(R.id.hospitalNameText)
         val city: TextView = view.findViewById(R.id.hospitalCityText)
         val contactButton: Button = view.findViewById(R.id.hospitalContactButton)
+        val locationButton: Button = view.findViewById(R.id.hospitalLocationButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalViewHolder {
@@ -54,6 +56,22 @@ class HospitalAdapter(private val hospitals: List<Hospital>) :
                     }
                 }
                 .show()
+        }
+
+        holder.locationButton.setOnClickListener {
+            val context = holder.itemView.context
+            val label = Uri.encode(hospital.name)
+            val geoUri = "geo:${hospital.lat},${hospital.lng}?q=${hospital.lat},${hospital.lng}($label)"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
+            intent.setPackage("com.google.android.apps.maps")
+
+            if (intent.resolveActivity(context.packageManager) != null) {
+                context.startActivity(intent)
+            } else {
+                val webUri = "https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.lng}"
+                val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(webUri))
+                context.startActivity(webIntent)
+            }
         }
     }
 
