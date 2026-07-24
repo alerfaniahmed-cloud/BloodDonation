@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.AdapterView
 import android.widget.TextView
@@ -25,6 +26,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -42,7 +45,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bloodTypeFilterSpinner: Spinner
     private lateinit var cityFilterInput: EditText
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var hospitalOffersButton: Button
+    private lateinit var hospitalOffersButton: LinearLayout
+    private lateinit var drawerLayout: DrawerLayout
 
     private var allRequests: List<Request> = listOf()
     private var requestListener: ListenerRegistration? = null
@@ -80,14 +84,16 @@ class MainActivity : AppCompatActivity() {
         cityFilterInput = findViewById(R.id.cityFilterInput)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         hospitalOffersButton = findViewById(R.id.hospitalOffersButton)
+        drawerLayout = findViewById(R.id.drawerLayout)
         val addButton = findViewById<Button>(R.id.addButton)
         val emergencyButton = findViewById<Button>(R.id.emergencyButton)
-        val profileButton = findViewById<Button>(R.id.profileButton)
-        val hospitalsButton = findViewById<Button>(R.id.hospitalsButton)
-        val helpCasesButton = findViewById<Button>(R.id.helpCasesButton)
-        val myOffersButton = findViewById<Button>(R.id.myOffersButton)
-        val leaderboardButton = findViewById<Button>(R.id.leaderboardButton)
-        val circleButton = findViewById<Button>(R.id.circleButton)
+        val hamburgerButton = findViewById<Button>(R.id.hamburgerButton)
+        val profileButton = findViewById<LinearLayout>(R.id.profileButton)
+        val hospitalsButton = findViewById<LinearLayout>(R.id.hospitalsButton)
+        val helpCasesButton = findViewById<LinearLayout>(R.id.helpCasesButton)
+        val myOffersButton = findViewById<LinearLayout>(R.id.myOffersButton)
+        val leaderboardButton = findViewById<LinearLayout>(R.id.leaderboardButton)
+        val circleButton = findViewById<LinearLayout>(R.id.circleButton)
         val languageButton = findViewById<Button>(R.id.languageButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -121,6 +127,10 @@ class MainActivity : AppCompatActivity() {
             toggleAppLanguage()
         }
 
+        hamburgerButton.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
         createNotificationChannel()
         requestNotificationPermission()
         requestLocationSilently()
@@ -137,30 +147,37 @@ class MainActivity : AppCompatActivity() {
         }
 
         profileButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
         hospitalsButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, HospitalsActivity::class.java))
         }
 
         helpCasesButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, HelpCasesActivity::class.java))
         }
 
         myOffersButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, MyDonorOffersActivity::class.java))
         }
 
         leaderboardButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, DonorLeaderboardActivity::class.java))
         }
 
         circleButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, CircleActivity::class.java))
         }
 
         hospitalOffersButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, HospitalDonorOffersActivity::class.java))
         }
     }
