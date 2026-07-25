@@ -206,6 +206,8 @@
 
     <string name="menu_subtitle">معًا ننقذ حياة</string>
 
+    <string name="hospital_location_button">📍 الموقع</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
