@@ -206,6 +206,8 @@
 
     <string name="menu_subtitle">Together, we save lives</string>
 
+    <string name="hospital_location_button">📍 Location</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
