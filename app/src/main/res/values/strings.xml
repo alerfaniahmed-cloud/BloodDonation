@@ -239,6 +239,11 @@
     <string name="campaign_already_registered">✅ مسجل حضورك</string>
     <string name="campaign_registered_toast">تم تسجيل حضورك، شكرًا لمساهمتك</string>
 
+    <string name="emergency_card_button">🆘 بطاقة الطوارئ</string>
+    <string name="emergency_card_title">بطاقة الطوارئ الطبية</string>
+    <string name="emergency_card_note">أظهر هذه الشاشة لفريق الإسعاف أو أي شخص يساعدك وقت الطوارئ</string>
+    <string name="call_emergency_contact_button">📞 اتصال بجهة الطوارئ</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
