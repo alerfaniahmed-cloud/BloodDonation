@@ -208,6 +208,11 @@
 
     <string name="hospital_location_button">📍 الموقع</string>
 
+    <string name="donation_history_title">📜 سجل تبرعاتي</string>
+    <string name="view_history_button">📜 عرض سجل التبرعات</string>
+    <string name="empty_donation_history">لا توجد تبرعات مسجلة بعد</string>
+    <string name="history_donation_number">التبرع رقم %1$d</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
