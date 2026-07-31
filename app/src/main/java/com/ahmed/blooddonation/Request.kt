@@ -13,5 +13,6 @@ data class Request(
     var requesterType: String = "individual",
     var lat: Double? = null,
     var lng: Double? = null,
+    val reportCount: Int = 0,
     @JvmField @Transient var distanceKm: Double? = null
 )
