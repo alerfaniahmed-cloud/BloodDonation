@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         val myOffersButton = findViewById<LinearLayout>(R.id.myOffersButton)
         val leaderboardButton = findViewById<LinearLayout>(R.id.leaderboardButton)
         val circleButton = findViewById<LinearLayout>(R.id.circleButton)
+        val campaignsButton = findViewById<LinearLayout>(R.id.campaignsButton)
         val languageButton = findViewById<Button>(R.id.languageButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -175,6 +176,11 @@ class MainActivity : AppCompatActivity() {
         circleButton.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, CircleActivity::class.java))
+        }
+
+        campaignsButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(this, CampaignsActivity::class.java))
         }
 
         hospitalOffersButton.setOnClickListener {
