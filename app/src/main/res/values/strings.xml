@@ -215,6 +215,12 @@
 
     <string name="hospital_verified_badge">✅ موثق</string>
 
+    <string name="report_request_button">🚩 إبلاغ عن هذا النداء</string>
+    <string name="already_reported_text">✅ تم إبلاغك</string>
+    <string name="confirm_report_title">تأكيد الإبلاغ</string>
+    <string name="confirm_report_message">هل أنت متأكد إن هذا النداء وهمي أو مضلل؟</string>
+    <string name="report_submitted_toast">تم استلام بلاغك، شكرًا لمساعدتك بحماية المجتمع</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
