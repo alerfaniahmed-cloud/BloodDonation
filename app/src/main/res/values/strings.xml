@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">رجا</string>
+    <string name="app_name">قطرة أمل</string>
     <string name="main_title">نداءات التبرع بالدم</string>
     <string name="profile_button">حسابي</string>
     <string name="hospitals_button">المستشفيات</string>
@@ -161,14 +161,14 @@
     <string name="attach_location_button">📍 إرفاق موقعي (اختياري، لترتيب النداء حسب القرب)</string>
 
     <string name="share_request_button">📤 مشاركة</string>
-    <string name="share_request_text">🩸 نداء تبرع بالدم عبر تطبيق رجا\nفصيلة الدم المطلوبة: %1$s\nالمدينة: %2$s\nدرجة الاستعجال: %3$s\nللتواصل: %4$s</string>
+    <string name="share_request_text">🩸 نداء تبرع بالدم عبر تطبيق قطرة أمل\nفصيلة الدم المطلوبة: %1$s\nالمدينة: %2$s\nدرجة الاستعجال: %3$s\nللتواصل: %4$s</string>
 
     <string name="share_certificate_button">🎖️ مشاركة شهادتي</string>
     <string name="certificate_title">شهادة منقذ حياة</string>
     <string name="certificate_subtitle">تكريمًا لجهودك في التبرع بالدم</string>
     <string name="certificate_donations_label">مرة تبرع</string>
     <string name="certificate_lives_saved">ساهمت في إنقاذ %1$d حياة تقريبًا</string>
-    <string name="certificate_share_text">🎖️ حصلت على شهادة منقذ حياة بـ %1$d تبرع عبر تطبيق رجا! انضم وساهم بإنقاذ حياة 🩸</string>
+    <string name="certificate_share_text">🎖️ حصلت على شهادة منقذ حياة بـ %1$d تبرع عبر تطبيق قطرة أمل! انضم وساهم بإنقاذ حياة 🩸</string>
 
     <string name="circle_button">👨‍👩‍👧‍👦 دائرتي</string>
     <string name="circle_title">دائرة العائلة</string>
@@ -186,7 +186,7 @@
     <string name="circle_invite_code_prefix">رمز الدعوة: %1$s</string>
     <string name="share_invite_code_button">📤 مشاركة رمز الدعوة</string>
     <string name="circle_invite_share_title">دعوة لدائرة العائلة</string>
-    <string name="circle_share_text">🩸 انضم لدائرة \"%1$s\" على تطبيق رجا! استخدم رمز الدعوة: %2$s</string>
+    <string name="circle_share_text">🩸 انضم لدائرة \"%1$s\" على تطبيق قطرة أمل! استخدم رمز الدعوة: %2$s</string>
     <string name="circle_emergency_button">🚨 نداء طوارئ لدائرتي</string>
     <string name="confirm_circle_alert_title">تأكيد النداء</string>
     <string name="confirm_circle_alert_message">راح يوصل إشعار فوري لكل أفراد دائرتك، متأكد تبي ترسله؟</string>
@@ -257,7 +257,7 @@
     <string name="impact_report_requests_label">نداء نشرته</string>
     <string name="share_impact_report_button">📤 مشاركة التقرير</string>
     <string name="impact_report_share_title">تقرير الأثر السنوي</string>
-    <string name="impact_report_share_text">📊 خلال العام تبرعت %1$d مرة وساهمت في إنقاذ %2$d حياة عبر تطبيق رجا! انضم وكن جزء من التغيير 🩸</string>
+    <string name="impact_report_share_text">📊 خلال العام تبرعت %1$d مرة وساهمت في إنقاذ %2$d حياة عبر تطبيق قطرة أمل! انضم وكن جزء من التغيير 🩸</string>
 
     <string-array name="help_case_categories">
         <item>علاج</item>
