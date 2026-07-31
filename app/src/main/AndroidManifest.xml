@@ -80,6 +80,10 @@
             android:name=".CreateCampaignActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".EmergencyCardActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
