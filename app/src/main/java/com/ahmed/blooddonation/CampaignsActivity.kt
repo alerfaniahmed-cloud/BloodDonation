@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,25 +22,33 @@ class CampaignsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_campaigns)
+        try {
+            setContentView(R.layout.activity_campaigns)
 
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
-        recyclerView = findViewById(R.id.campaignsRecyclerView)
-        emptyText = findViewById(R.id.emptyCampaignsText)
-        createCampaignButton = findViewById(R.id.createCampaignButton)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+            auth = FirebaseAuth.getInstance()
+            db = FirebaseFirestore.getInstance()
+            recyclerView = findViewById(R.id.campaignsRecyclerView)
+            emptyText = findViewById(R.id.emptyCampaignsText)
+            createCampaignButton = findViewById(R.id.createCampaignButton)
+            recyclerView.layoutManager = LinearLayoutManager(this)
 
-        createCampaignButton.setOnClickListener {
-            startActivity(Intent(this, CreateCampaignActivity::class.java))
+            createCampaignButton.setOnClickListener {
+                startActivity(Intent(this, CreateCampaignActivity::class.java))
+            }
+
+            checkAccountType()
+        } catch (e: Exception) {
+            Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
         }
-
-        checkAccountType()
     }
 
     override fun onResume() {
         super.onResume()
-        loadCampaigns()
+        try {
+            loadCampaigns()
+        } catch (e: Exception) {
+            Toast.makeText(this, "خطأ بالتحميل: ${e.message}", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun checkAccountType() {
@@ -48,6 +57,9 @@ class CampaignsActivity : AppCompatActivity() {
             .addOnSuccessListener { doc ->
                 val accountType = doc.getString("accountType") ?: "individual"
                 createCampaignButton.visibility = if (accountType == "hospital") View.VISIBLE else View.GONE
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "خطأ بجلب الحساب: ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
 
@@ -73,6 +85,9 @@ class CampaignsActivity : AppCompatActivity() {
                         loadCampaigns()
                     }
                 }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "خطأ بجلب الحملات: ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
 }
