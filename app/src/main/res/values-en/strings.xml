@@ -239,6 +239,11 @@
     <string name="campaign_already_registered">✅ Attendance Registered</string>
     <string name="campaign_registered_toast">Your attendance was registered, thank you for your contribution</string>
 
+    <string name="emergency_card_button">🆘 Emergency Card</string>
+    <string name="emergency_card_title">Medical Emergency Card</string>
+    <string name="emergency_card_note">Show this screen to first responders or anyone helping you in an emergency</string>
+    <string name="call_emergency_contact_button">📞 Call Emergency Contact</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
