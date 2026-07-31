@@ -98,6 +98,17 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/reportButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/report_request_button"
+            android:textSize="12sp"
+            android:textColor="#999999"
+            android:padding="8dp"
+            android:layout_marginTop="4dp" />
+
         <LinearLayout
             android:id="@+id/ownerActionsLayout"
             android:layout_width="match_parent"
