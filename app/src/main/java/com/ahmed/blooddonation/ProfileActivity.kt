@@ -39,6 +39,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var eligibilityStatusText: TextView
     private lateinit var shareCertificateButton: Button
     private lateinit var viewHistoryButton: Button
+    private lateinit var viewImpactReportButton: Button
 
     private var accountType: String = "individual"
     private var hospitalLat: Double? = null
@@ -71,6 +72,7 @@ class ProfileActivity : AppCompatActivity() {
         eligibilityStatusText = findViewById(R.id.eligibilityStatusText)
         shareCertificateButton = findViewById(R.id.shareCertificateButton)
         viewHistoryButton = findViewById(R.id.viewHistoryButton)
+        viewImpactReportButton = findViewById(R.id.viewImpactReportButton)
         val saveButton = findViewById<Button>(R.id.saveProfileButton)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
 
@@ -86,6 +88,10 @@ class ProfileActivity : AppCompatActivity() {
 
         viewHistoryButton.setOnClickListener {
             startActivity(Intent(this, DonationHistoryActivity::class.java))
+        }
+
+        viewImpactReportButton.setOnClickListener {
+            startActivity(Intent(this, ImpactReportActivity::class.java))
         }
 
         shareCertificateButton.setOnClickListener {
