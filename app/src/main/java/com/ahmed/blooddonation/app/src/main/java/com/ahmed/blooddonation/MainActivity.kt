@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         val addButton = findViewById<Button>(R.id.addButton)
         val emergencyButton = findViewById<Button>(R.id.emergencyButton)
         val hamburgerButton = findViewById<Button>(R.id.hamburgerButton)
+        val emergencyCardButton = findViewById<LinearLayout>(R.id.emergencyCardButton)
         val profileButton = findViewById<LinearLayout>(R.id.profileButton)
         val hospitalsButton = findViewById<LinearLayout>(R.id.hospitalsButton)
         val helpCasesButton = findViewById<LinearLayout>(R.id.helpCasesButton)
@@ -146,6 +147,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CreateRequestActivity::class.java)
             intent.putExtra("isEmergency", true)
             startActivity(intent)
+        }
+
+        emergencyCardButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(this, EmergencyCardActivity::class.java))
         }
 
         profileButton.setOnClickListener {
