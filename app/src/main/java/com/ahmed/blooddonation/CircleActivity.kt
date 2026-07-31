@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -32,12 +33,20 @@ class CircleActivity : AppCompatActivity() {
     private lateinit var membersRecyclerView: RecyclerView
     private lateinit var emptyMembersText: TextView
     private lateinit var leaveCircleButton: Button
+    private lateinit var familyTreeCard: CardView
+    private lateinit var familyDonationCountText: TextView
+    private lateinit var familyLivesSavedText: TextView
+    private lateinit var familyContributorsText: TextView
 
     private var myCircleId: String = ""
     private var myBloodType: String = ""
     private var myCity: String = ""
     private var myName: String = ""
     private var myPhone: String = ""
+
+    companion object {
+        private const val LIVES_PER_DONATION = 3
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +68,10 @@ class CircleActivity : AppCompatActivity() {
         membersRecyclerView = findViewById(R.id.membersRecyclerView)
         emptyMembersText = findViewById(R.id.emptyMembersText)
         leaveCircleButton = findViewById(R.id.leaveCircleButton)
+        familyTreeCard = findViewById(R.id.familyTreeCard)
+        familyDonationCountText = findViewById(R.id.familyDonationCountText)
+        familyLivesSavedText = findViewById(R.id.familyLivesSavedText)
+        familyContributorsText = findViewById(R.id.familyContributorsText)
 
         membersRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -186,7 +199,63 @@ class CircleActivity : AppCompatActivity() {
                     membersRecyclerView.visibility = View.VISIBLE
                     membersRecyclerView.adapter = CircleMemberAdapter(members)
                 }
+                loadFamilyTree(members)
             }
+    }
+
+    private fun loadFamilyTree(members: List<CircleMemberInfo>) {
+        if (members.isEmpty()) {
+            familyTreeCard.visibility = View.GONE
+            return
+        }
+
+        var totalDonations = 0
+        var contributorsCount = 0
+        var queriesCompleted = 0
+
+        for (member in members) {
+            db.collection("donorOffers")
+                .whereEqualTo("donorId", member.userId)
+                .get()
+                .addOnSuccessListener { result ->
+                    var memberDonations = 0
+                    for (doc in result) {
+                        val donorConfirmed = doc.getBoolean("donorConfirmed") ?: false
+                        val hospitalConfirmed = doc.getBoolean("hospitalConfirmed") ?: false
+                        if (donorConfirmed || hospitalConfirmed) {
+                            memberDonations++
+                        }
+                    }
+                    if (memberDonations > 0) {
+                        contributorsCount++
+                    }
+                    totalDonations += memberDonations
+                    queriesCompleted++
+
+                    if (queriesCompleted == members.size) {
+                        displayFamilyTree(totalDonations, contributorsCount, members.size)
+                    }
+                }
+                .addOnFailureListener {
+                    queriesCompleted++
+                    if (queriesCompleted == members.size) {
+                        displayFamilyTree(totalDonations, contributorsCount, members.size)
+                    }
+                }
+        }
+    }
+
+    private fun displayFamilyTree(totalDonations: Int, contributorsCount: Int, totalMembers: Int) {
+        if (totalDonations <= 0) {
+            familyTreeCard.visibility = View.GONE
+            return
+        }
+
+        familyTreeCard.visibility = View.VISIBLE
+        familyDonationCountText.text = totalDonations.toString()
+        val livesSaved = totalDonations * LIVES_PER_DONATION
+        familyLivesSavedText.text = getString(R.string.family_lives_saved_text, livesSaved)
+        familyContributorsText.text = getString(R.string.family_contributors_text, contributorsCount, totalMembers)
     }
 
     private fun shareInviteCode() {
