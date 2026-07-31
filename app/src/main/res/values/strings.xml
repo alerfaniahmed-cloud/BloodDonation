@@ -213,6 +213,8 @@
     <string name="empty_donation_history">لا توجد تبرعات مسجلة بعد</string>
     <string name="history_donation_number">التبرع رقم %1$d</string>
 
+    <string name="hospital_verified_badge">✅ موثق</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
