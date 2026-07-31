@@ -129,7 +129,15 @@ class HospitalsActivity : AppCompatActivity() {
                         val name = doc.getString("name") ?: getString(R.string.registered_hospital_default)
                         val city = doc.getString("city") ?: ""
                         val phone = doc.getString("phone") ?: ""
-                        fetched.add(Hospital(name, city, phone, lat, lng, isRegistered = true, hospitalUserId = doc.id))
+                        val verified = doc.getBoolean("verified") ?: false
+                        fetched.add(
+                            Hospital(
+                                name, city, phone, lat, lng,
+                                isRegistered = true,
+                                hospitalUserId = doc.id,
+                                isVerified = verified
+                            )
+                        )
                     }
                 }
                 registeredHospitals = fetched
