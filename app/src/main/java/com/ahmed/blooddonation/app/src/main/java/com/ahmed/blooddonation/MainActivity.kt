@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         private const val LOCATION_PERMISSION_REQUEST = 600
         private const val ELIGIBILITY_DAYS = 56
         private const val MILLIS_PER_DAY = 24L * 60 * 60 * 1000
+        private const val REPORT_THRESHOLD = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -600,11 +601,13 @@ class MainActivity : AppCompatActivity() {
         val selectedPosition = bloodTypeFilterSpinner.selectedItemPosition
         val selectedBloodType = bloodTypeFilterSpinner.selectedItem?.toString() ?: ""
         val cityQuery = cityFilterInput.text.toString().trim()
+        val currentUserId = auth.currentUser?.uid
 
         var filtered = allRequests.filter { request ->
             val matchesBloodType = selectedPosition == 0 || request.bloodType == selectedBloodType
             val matchesCity = cityQuery.isEmpty() || request.city.contains(cityQuery, ignoreCase = true)
-            matchesBloodType && matchesCity
+            val isHidden = request.reportCount >= REPORT_THRESHOLD && request.userId != currentUserId
+            matchesBloodType && matchesCity && !isHidden
         }
 
         val lat = myLat
