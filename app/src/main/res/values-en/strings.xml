@@ -208,6 +208,11 @@
 
     <string name="hospital_location_button">📍 Location</string>
 
+    <string name="donation_history_title">📜 My Donation History</string>
+    <string name="view_history_button">📜 View Donation History</string>
+    <string name="empty_donation_history">No donations recorded yet</string>
+    <string name="history_donation_number">Donation #%1$d</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
