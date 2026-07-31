@@ -221,6 +221,24 @@
     <string name="confirm_report_message">Are you sure this request is fake or misleading?</string>
     <string name="report_submitted_toast">Your report was received, thank you for helping protect the community</string>
 
+    <string name="campaigns_button">🗓️ Donation Campaigns</string>
+    <string name="campaigns_title">Group Donation Campaigns</string>
+    <string name="create_campaign_button">+ Create New Campaign</string>
+    <string name="create_campaign_title">Create Donation Campaign</string>
+    <string name="campaign_title_hint">Campaign title (e.g. National Day Donation Drive)</string>
+    <string name="campaign_datetime_hint">Date and time (e.g. Aug 15 - 9 AM)</string>
+    <string name="campaign_city_hint">City or Location</string>
+    <string name="campaign_notes_hint">Additional Notes (optional)</string>
+    <string name="publish_campaign_button">Publish Campaign</string>
+    <string name="fill_required_campaign_fields">Please fill in the title, date, and city</string>
+    <string name="campaign_published">Campaign published successfully</string>
+    <string name="empty_campaigns">No donation campaigns currently</string>
+    <string name="campaign_hospital_prefix">Organized by: %1$s</string>
+    <string name="campaign_registered_count">Registered: %1$d</string>
+    <string name="campaign_register_button">Register My Attendance</string>
+    <string name="campaign_already_registered">✅ Attendance Registered</string>
+    <string name="campaign_registered_toast">Your attendance was registered, thank you for your contribution</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
