@@ -215,6 +215,12 @@
 
     <string name="hospital_verified_badge">✅ Verified</string>
 
+    <string name="report_request_button">🚩 Report This Request</string>
+    <string name="already_reported_text">✅ Reported</string>
+    <string name="confirm_report_title">Confirm Report</string>
+    <string name="confirm_report_message">Are you sure this request is fake or misleading?</string>
+    <string name="report_submitted_toast">Your report was received, thank you for helping protect the community</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
