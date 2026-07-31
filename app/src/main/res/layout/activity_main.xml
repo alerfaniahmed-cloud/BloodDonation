@@ -7,13 +7,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF5F5">
+        android:background="#FFFFFF">
 
         <RelativeLayout
             android:id="@+id/languageBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FBE4E4"
+            android:background="#EEEEEE"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="6dp"
@@ -26,14 +26,12 @@
                 android:layout_alignParentStart="true"
                 android:text="☰"
                 android:textSize="18sp"
-                android:textColor="#8E1B1B"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:backgroundTint="#FFFFFF" />
+                android:paddingBottom="4dp" />
 
             <Button
                 android:id="@+id/languageButton"
@@ -42,14 +40,12 @@
                 android:layout_alignParentEnd="true"
                 android:text="English"
                 android:textSize="12sp"
-                android:textColor="#8E1B1B"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:backgroundTint="#FFFFFF" />
+                android:paddingBottom="4dp" />
 
         </RelativeLayout>
 
@@ -58,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/languageBar"
-            android:background="#FFF5F5"
+            android:background="#F5F5F5"
             android:orientation="vertical"
             android:padding="12dp">
 
@@ -70,8 +66,7 @@
                 android:gravity="center"
                 android:text="@string/main_title"
                 android:textSize="19sp"
-                android:textStyle="bold"
-                android:textColor="#8E1B1B" />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/emergencyButton"
@@ -79,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/emergency_button"
                 android:textColor="#FFFFFF"
-                android:backgroundTint="#B71C1C"
+                android:backgroundTint="#C62828"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -130,7 +125,6 @@
             android:layout_centerInParent="true"
             android:text="@string/empty_requests"
             android:textSize="16sp"
-            android:textColor="#8E1B1B"
             android:visibility="gone" />
 
         <Button
@@ -139,8 +133,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="@string/add_request_button"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#C62828"
             android:padding="16dp" />
 
     </RelativeLayout>
@@ -162,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="#C62828"
+                android:background="#F5F5F5"
                 android:padding="20dp"
                 android:gravity="center">
 
@@ -177,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/app_name"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#C62828"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -186,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/menu_subtitle"
-                    android:textColor="#FFE0E0"
+                    android:textColor="#777777"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -214,8 +206,7 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/emergency_card_button"
                     android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#B71C1C" />
+                    android:textColor="#2B2B2B" />
 
             </LinearLayout>
 
