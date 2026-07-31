@@ -14,14 +14,9 @@
                 android:startY="0"
                 android:endX="108"
                 android:endY="108"
-                android:startColor="#0E7A63"
-                android:endColor="#1FAE8E" />
+                android:startColor="#FFFFFF"
+                android:endColor="#FFF0F0" />
         </aapt:attr>
     </path>
-
-    <path
-        android:pathData="M0,54 C0,24 24,0 54,0 C84,0 108,24 108,54 C108,84 84,108 54,108 C24,108 0,84 0,54 Z"
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.06" />
 
 </vector>
