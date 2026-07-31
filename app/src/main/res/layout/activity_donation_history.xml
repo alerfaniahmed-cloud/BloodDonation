@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/historyTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5"
+        android:gravity="center"
+        android:padding="14dp"
+        android:text="@string/donation_history_title"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/historyTitleText"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/emptyHistoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/empty_donation_history"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+</RelativeLayout>
