@@ -244,6 +244,11 @@
     <string name="emergency_card_note">أظهر هذه الشاشة لفريق الإسعاف أو أي شخص يساعدك وقت الطوارئ</string>
     <string name="call_emergency_contact_button">📞 اتصال بجهة الطوارئ</string>
 
+    <string name="family_tree_title">🌳 شجرة العائلة الواهبة</string>
+    <string name="family_total_donations_label">إجمالي تبرعات العائلة</string>
+    <string name="family_lives_saved_text">ساهمت العائلة في إنقاذ %1$d حياة تقريبًا</string>
+    <string name="family_contributors_text">%1$d من أصل %2$d أفراد ساهموا بالتبرع</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
