@@ -15,22 +15,17 @@
                 android:startY="22"
                 android:endX="76"
                 android:endY="86"
-                android:startColor="#FFFFFF"
-                android:endColor="#E0FFF7" />
+                android:startColor="#F04040"
+                android:endColor="#8E1B1B" />
         </aapt:attr>
     </path>
 
     <path
-        android:pathData="M41,60 C41,60 43,44 54,30"
+        android:pathData="M43,42 C43,42 45,34 50,28"
         android:strokeColor="#FFFFFF"
-        android:strokeWidth="3.2"
+        android:strokeWidth="4"
         android:strokeLineCap="round"
-        android:strokeAlpha="0.55"
+        android:strokeAlpha="0.6"
         android:fillColor="#00000000" />
-
-    <path
-        android:pathData="M62,66 C62,72.6 57.6,77 51.5,77 C51.5,77 60,79 66,73 C70,69 68,60 68,60 C68,60 70.5,64.5 62,66 Z"
-        android:fillColor="#1FAE8E"
-        android:fillAlpha="0.16" />
 
 </vector>
