@@ -249,6 +249,16 @@
     <string name="family_lives_saved_text">ساهمت العائلة في إنقاذ %1$d حياة تقريبًا</string>
     <string name="family_contributors_text">%1$d من أصل %2$d أفراد ساهموا بالتبرع</string>
 
+    <string name="view_impact_report_button">📊 تقرير أثري السنوي</string>
+    <string name="impact_report_title">تقرير الأثر السنوي</string>
+    <string name="impact_report_year_label">عام %1$d</string>
+    <string name="impact_report_donations_label">تبرع خلال العام</string>
+    <string name="impact_report_lives_label">حياة ساهمت بإنقاذها</string>
+    <string name="impact_report_requests_label">نداء نشرته</string>
+    <string name="share_impact_report_button">📤 مشاركة التقرير</string>
+    <string name="impact_report_share_title">تقرير الأثر السنوي</string>
+    <string name="impact_report_share_text">📊 خلال العام تبرعت %1$d مرة وساهمت في إنقاذ %2$d حياة عبر تطبيق رجا! انضم وكن جزء من التغيير 🩸</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
