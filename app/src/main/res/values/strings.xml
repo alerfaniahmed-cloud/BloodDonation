@@ -221,6 +221,24 @@
     <string name="confirm_report_message">هل أنت متأكد إن هذا النداء وهمي أو مضلل؟</string>
     <string name="report_submitted_toast">تم استلام بلاغك، شكرًا لمساعدتك بحماية المجتمع</string>
 
+    <string name="campaigns_button">🗓️ حملات التبرع</string>
+    <string name="campaigns_title">حملات التبرع الجماعي</string>
+    <string name="create_campaign_button">+ إنشاء حملة جديدة</string>
+    <string name="create_campaign_title">إنشاء حملة تبرع</string>
+    <string name="campaign_title_hint">عنوان الحملة (مثال: يوم تبرع بمناسبة اليوم الوطني)</string>
+    <string name="campaign_datetime_hint">التاريخ والوقت (مثال: 15 أغسطس - 9 صباحاً)</string>
+    <string name="campaign_city_hint">المدينة أو الموقع</string>
+    <string name="campaign_notes_hint">ملاحظات إضافية (اختياري)</string>
+    <string name="publish_campaign_button">نشر الحملة</string>
+    <string name="fill_required_campaign_fields">الرجاء تعبئة العنوان والتاريخ والمدينة</string>
+    <string name="campaign_published">تم نشر الحملة بنجاح</string>
+    <string name="empty_campaigns">لا توجد حملات تبرع حالياً</string>
+    <string name="campaign_hospital_prefix">الجهة المنظمة: %1$s</string>
+    <string name="campaign_registered_count">عدد المسجلين: %1$d</string>
+    <string name="campaign_register_button">تسجيل حضوري</string>
+    <string name="campaign_already_registered">✅ مسجل حضورك</string>
+    <string name="campaign_registered_toast">تم تسجيل حضورك، شكرًا لمساهمتك</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
