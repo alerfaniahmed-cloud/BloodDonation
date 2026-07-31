@@ -213,6 +213,8 @@
     <string name="empty_donation_history">No donations recorded yet</string>
     <string name="history_donation_number">Donation #%1$d</string>
 
+    <string name="hospital_verified_badge">✅ Verified</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
