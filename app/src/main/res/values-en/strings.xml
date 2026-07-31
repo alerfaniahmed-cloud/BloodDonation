@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Raja</string>
+    <string name="app_name">Qatrat Amal</string>
     <string name="main_title">Blood Donation Requests</string>
     <string name="profile_button">My Account</string>
     <string name="hospitals_button">Hospitals</string>
@@ -161,14 +161,14 @@
     <string name="attach_location_button">📍 Attach My Location (optional, sorts request by proximity)</string>
 
     <string name="share_request_button">📤 Share</string>
-    <string name="share_request_text">🩸 Blood donation request via Raja app\nBlood type needed: %1$s\nCity: %2$s\nUrgency: %3$s\nContact: %4$s</string>
+    <string name="share_request_text">🩸 Blood donation request via Qatrat Amal app\nBlood type needed: %1$s\nCity: %2$s\nUrgency: %3$s\nContact: %4$s</string>
 
     <string name="share_certificate_button">🎖️ Share My Certificate</string>
     <string name="certificate_title">Life Saver Certificate</string>
     <string name="certificate_subtitle">In recognition of your blood donation efforts</string>
     <string name="certificate_donations_label">donations</string>
     <string name="certificate_lives_saved">You\'ve helped save approximately %1$d lives</string>
-    <string name="certificate_share_text">🎖️ I earned a Life Saver certificate with %1$d donations via Raja app! Join and help save a life 🩸</string>
+    <string name="certificate_share_text">🎖️ I earned a Life Saver certificate with %1$d donations via Qatrat Amal app! Join and help save a life 🩸</string>
 
     <string name="circle_button">👨‍👩‍👧‍👦 My Circle</string>
     <string name="circle_title">Family Circle</string>
@@ -186,7 +186,7 @@
     <string name="circle_invite_code_prefix">Invite code: %1$s</string>
     <string name="share_invite_code_button">📤 Share Invite Code</string>
     <string name="circle_invite_share_title">Family Circle Invite</string>
-    <string name="circle_share_text">🩸 Join the \"%1$s\" circle on Raja app! Use invite code: %2$s</string>
+    <string name="circle_share_text">🩸 Join the \"%1$s\" circle on Qatrat Amal app! Use invite code: %2$s</string>
     <string name="circle_emergency_button">🚨 Emergency Alert to My Circle</string>
     <string name="confirm_circle_alert_title">Confirm Alert</string>
     <string name="confirm_circle_alert_message">This will send an instant notification to all your circle members, are you sure you want to send it?</string>
@@ -257,7 +257,7 @@
     <string name="impact_report_requests_label">Requests Published</string>
     <string name="share_impact_report_button">📤 Share Report</string>
     <string name="impact_report_share_title">Annual Impact Report</string>
-    <string name="impact_report_share_text">📊 This year I donated %1$d times and helped save approximately %2$d lives via Raja app! Join and be part of the change 🩸</string>
+    <string name="impact_report_share_text">📊 This year I donated %1$d times and helped save approximately %2$d lives via Qatrat Amal app! Join and be part of the change 🩸</string>
 
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
