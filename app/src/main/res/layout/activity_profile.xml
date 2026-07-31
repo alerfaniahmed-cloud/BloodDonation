@@ -79,10 +79,19 @@
                     android:textColor="#FFFFFF" />
 
                 <Button
-                    android:id="@+id/shareCertificateButton"
+                    android:id="@+id/viewHistoryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
+                    android:text="@string/view_history_button"
+                    android:textColor="#1FAE8E"
+                    android:backgroundTint="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/shareCertificateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@string/share_certificate_button"
                     android:textColor="#1FAE8E"
                     android:backgroundTint="#FFFFFF" />
