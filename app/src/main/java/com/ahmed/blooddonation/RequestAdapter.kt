@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +26,7 @@ class RequestAdapter(private val requests: List<Request>) :
         val notes: TextView = view.findViewById(R.id.notesText)
         val contactButton: Button = view.findViewById(R.id.contactButton)
         val shareButton: Button = view.findViewById(R.id.shareButton)
+        val reportButton: TextView = view.findViewById(R.id.reportButton)
         val ownerActionsLayout: LinearLayout = view.findViewById(R.id.ownerActionsLayout)
         val editButton: Button = view.findViewById(R.id.editButton)
         val deleteButton: Button = view.findViewById(R.id.deleteButton)
@@ -63,10 +65,19 @@ class RequestAdapter(private val requests: List<Request>) :
         holder.notes.text = request.notes
 
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
-        if (request.userId.isNotEmpty() && request.userId == currentUserId) {
-            holder.ownerActionsLayout.visibility = View.VISIBLE
+        val isOwner = request.userId.isNotEmpty() && request.userId == currentUserId
+        holder.ownerActionsLayout.visibility = if (isOwner) View.VISIBLE else View.GONE
+
+        if (isOwner || currentUserId == null) {
+            holder.reportButton.visibility = View.GONE
         } else {
-            holder.ownerActionsLayout.visibility = View.GONE
+            holder.reportButton.visibility = View.VISIBLE
+            holder.reportButton.text = holder.itemView.context.getString(R.string.report_request_button)
+            checkIfAlreadyReported(request.id, currentUserId, holder.reportButton)
+
+            holder.reportButton.setOnClickListener {
+                confirmAndReport(request, holder.reportButton, currentUserId)
+            }
         }
 
         holder.contactButton.setOnClickListener {
@@ -138,6 +149,60 @@ class RequestAdapter(private val requests: List<Request>) :
             intent.putExtra("editPhone", request.contactPhone)
             intent.putExtra("editNotes", request.notes)
             context.startActivity(intent)
+        }
+    }
+
+    private fun checkIfAlreadyReported(requestId: String, userId: String, button: TextView) {
+        FirebaseFirestore.getInstance().collection("requests")
+            .document(requestId)
+            .collection("reports")
+            .document(userId)
+            .get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    button.isEnabled = false
+                    button.text = button.context.getString(R.string.already_reported_text)
+                }
+            }
+    }
+
+    private fun confirmAndReport(request: Request, button: TextView, userId: String) {
+        val context = button.context
+        AlertDialog.Builder(context)
+            .setTitle(context.getString(R.string.confirm_report_title))
+            .setMessage(context.getString(R.string.confirm_report_message))
+            .setPositiveButton(context.getString(R.string.confirm_button)) { _, _ ->
+                submitReport(request, button, userId)
+            }
+            .setNegativeButton(context.getString(R.string.cancel_button), null)
+            .show()
+    }
+
+    private fun submitReport(request: Request, button: TextView, userId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val requestRef = db.collection("requests").document(request.id)
+        val reportRef = requestRef.collection("reports").document(userId)
+
+        reportRef.get().addOnSuccessListener { doc ->
+            if (doc.exists()) {
+                button.isEnabled = false
+                button.text = button.context.getString(R.string.already_reported_text)
+                return@addOnSuccessListener
+            }
+
+            reportRef.set(mapOf("timestamp" to System.currentTimeMillis()))
+                .addOnSuccessListener {
+                    val newCount = request.reportCount + 1
+                    requestRef.update("reportCount", newCount)
+                        .addOnSuccessListener {
+                            button.isEnabled = false
+                            button.text = button.context.getString(R.string.already_reported_text)
+                            Toast.makeText(button.context, button.context.getString(R.string.report_submitted_toast), Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(button.context, button.context.getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
+                }
         }
     }
 
