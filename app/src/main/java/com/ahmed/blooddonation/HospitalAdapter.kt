@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class HospitalAdapter(private val hospitals: List<Hospital>) :
@@ -16,6 +15,7 @@ class HospitalAdapter(private val hospitals: List<Hospital>) :
 
     class HospitalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.hospitalNameText)
+        val verifiedBadge: TextView = view.findViewById(R.id.hospitalVerifiedBadge)
         val city: TextView = view.findViewById(R.id.hospitalCityText)
         val contactButton: Button = view.findViewById(R.id.hospitalContactButton)
         val locationButton: Button = view.findViewById(R.id.hospitalLocationButton)
@@ -31,6 +31,7 @@ class HospitalAdapter(private val hospitals: List<Hospital>) :
         val hospital = hospitals[position]
         holder.name.text = hospital.name
         holder.city.text = hospital.city
+        holder.verifiedBadge.visibility = if (hospital.isVerified) View.VISIBLE else View.GONE
 
         holder.contactButton.setOnClickListener {
             val context = holder.itemView.context
