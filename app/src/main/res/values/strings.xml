@@ -46,6 +46,22 @@
     <string name="register_button">إنشاء حساب جديد</string>
     <string name="login_success">تم تسجيل الدخول بنجاح</string>
 
+    <string name="email_tab_button">البريد الإلكتروني</string>
+    <string name="phone_tab_button">رقم الجوال</string>
+    <string name="phone_number_login_hint">رقم الجوال (مثال: 05xxxxxxxx)</string>
+    <string name="send_otp_button">إرسال رمز التحقق</string>
+    <string name="invalid_phone_number">رقم الجوال غير صحيح، تأكد إنه رقم سعودي</string>
+
+    <string name="otp_title">تحقق من رقم جوالك</string>
+    <string name="otp_code_hint">أدخل الرمز المكوّن من 6 أرقام</string>
+    <string name="verify_otp_button">تأكيد</string>
+    <string name="resend_otp_button">إعادة إرسال الرمز</string>
+    <string name="resend_otp_in_seconds">إعادة الإرسال بعد %1$d ثانية</string>
+    <string name="otp_sent_message">تم إرسال رمز التحقق إلى %1$s</string>
+    <string name="otp_resent_message">تم إعادة إرسال الرمز</string>
+    <string name="otp_verification_failed">تعذر التحقق، حاول مرة أخرى</string>
+    <string name="invalid_otp_code">الرمز الذي أدخلته غير صحيح</string>
+
     <string name="create_request_title">إنشاء نداء تبرع بالدم</string>
     <string name="blood_type_needed_label">فصيلة الدم المطلوبة</string>
     <string name="urgency_label">درجة الاستعجال</string>
