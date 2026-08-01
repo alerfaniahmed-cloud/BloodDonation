@@ -46,6 +46,7 @@
     <string name="register_button">Create New Account</string>
     <string name="login_success">Logged in successfully</string>
 
+    <string name="identifier_hint">Email or Phone Number</string>
     <string name="email_tab_button">Email</string>
     <string name="phone_tab_button">Phone Number</string>
     <string name="phone_number_login_hint">Phone number (e.g. 05xxxxxxxx)</string>
