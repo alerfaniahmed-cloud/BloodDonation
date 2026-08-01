@@ -46,6 +46,22 @@
     <string name="register_button">Create New Account</string>
     <string name="login_success">Logged in successfully</string>
 
+    <string name="email_tab_button">Email</string>
+    <string name="phone_tab_button">Phone Number</string>
+    <string name="phone_number_login_hint">Phone number (e.g. 05xxxxxxxx)</string>
+    <string name="send_otp_button">Send Verification Code</string>
+    <string name="invalid_phone_number">Invalid phone number, make sure it\'s a Saudi number</string>
+
+    <string name="otp_title">Verify Your Phone Number</string>
+    <string name="otp_code_hint">Enter the 6-digit code</string>
+    <string name="verify_otp_button">Verify</string>
+    <string name="resend_otp_button">Resend Code</string>
+    <string name="resend_otp_in_seconds">Resend in %1$d seconds</string>
+    <string name="otp_sent_message">Verification code sent to %1$s</string>
+    <string name="otp_resent_message">Code resent</string>
+    <string name="otp_verification_failed">Verification failed, please try again</string>
+    <string name="invalid_otp_code">The code you entered is incorrect</string>
+
     <string name="create_request_title">Create Blood Donation Request</string>
     <string name="blood_type_needed_label">Blood Type Needed</string>
     <string name="urgency_label">Urgency Level</string>
