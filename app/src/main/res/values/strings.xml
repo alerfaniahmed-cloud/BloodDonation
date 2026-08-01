@@ -259,6 +259,8 @@
     <string name="impact_report_share_title">تقرير الأثر السنوي</string>
     <string name="impact_report_share_text">📊 خلال العام تبرعت %1$d مرة وساهمت في إنقاذ %2$d حياة عبر تطبيق قطرة أمل! انضم وكن جزء من التغيير 🩸</string>
 
+    <string name="splash_verse_text">وَمَنْ أَحْيَاهَا فَكَأَنَّمَا أَحْيَا النَّاسَ جَمِيعًا</string>
+
     <string-array name="help_case_categories">
         <item>علاج</item>
         <item>عملية جراحية</item>
