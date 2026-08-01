@@ -2,10 +2,11 @@ package com.ahmed.blooddonation
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -21,17 +22,11 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var emailLoginLayout: LinearLayout
-    private lateinit var phoneLoginLayout: LinearLayout
-    private lateinit var emailTabButton: Button
-    private lateinit var phoneTabButton: Button
-
-    private lateinit var emailInput: EditText
+    private lateinit var identifierInput: EditText
     private lateinit var passwordInput: EditText
-    private lateinit var loginButton: Button
+    private lateinit var actionButton: Button
 
-    private lateinit var phoneNumberInput: EditText
-    private lateinit var sendOtpButton: Button
+    private var isEmailMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,17 +43,9 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-        emailLoginLayout = findViewById(R.id.emailLoginLayout)
-        phoneLoginLayout = findViewById(R.id.phoneLoginLayout)
-        emailTabButton = findViewById(R.id.emailTabButton)
-        phoneTabButton = findViewById(R.id.phoneTabButton)
-
-        emailInput = findViewById(R.id.emailInput)
+        identifierInput = findViewById(R.id.identifierInput)
         passwordInput = findViewById(R.id.passwordInput)
-        loginButton = findViewById(R.id.loginButton)
-
-        phoneNumberInput = findViewById(R.id.phoneNumberInput)
-        sendOtpButton = findViewById(R.id.sendOtpButton)
+        actionButton = findViewById(R.id.actionButton)
 
         val registerButton = findViewById<Button>(R.id.registerButton)
         val languageButton = findViewById<Button>(R.id.languageButton)
@@ -68,49 +55,54 @@ class LoginActivity : AppCompatActivity() {
             toggleAppLanguage()
         }
 
-        showEmailTab()
+        identifierInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                updateModeUI(s.toString().trim())
+            }
+        })
 
-        emailTabButton.setOnClickListener { showEmailTab() }
-        phoneTabButton.setOnClickListener { showPhoneTab() }
+        // الحالة الافتراضية عند فتح الشاشة (حقل فاضي = وضع الجوال)
+        updateModeUI("")
 
-        loginButton.setOnClickListener {
-            val email = emailInput.text.toString().trim()
-            val password = passwordInput.text.toString().trim()
+        actionButton.setOnClickListener {
+            val identifier = identifierInput.text.toString().trim()
 
-            if (email.isEmpty() || password.isEmpty()) {
+            if (identifier.isEmpty()) {
                 Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    } else {
-                        Toast.makeText(this, getString(R.string.error_generic, task.exception?.message), Toast.LENGTH_LONG).show()
-                    }
+            if (isEmailMode) {
+                val password = passwordInput.text.toString().trim()
+
+                if (password.isEmpty()) {
+                    Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
                 }
-        }
 
-        sendOtpButton.setOnClickListener {
-            val rawNumber = phoneNumberInput.text.toString().trim()
+                auth.signInWithEmailAndPassword(identifier, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(this, getString(R.string.error_generic, task.exception?.message), Toast.LENGTH_LONG).show()
+                        }
+                    }
+            } else {
+                val fullNumber = formatSaudiPhoneNumber(identifier)
 
-            if (rawNumber.isEmpty()) {
-                Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+                if (fullNumber == null) {
+                    Toast.makeText(this, getString(R.string.invalid_phone_number), Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                actionButton.isEnabled = false
+                startPhoneVerification(fullNumber)
             }
-
-            val fullNumber = formatSaudiPhoneNumber(rawNumber)
-
-            if (fullNumber == null) {
-                Toast.makeText(this, getString(R.string.invalid_phone_number), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            sendOtpButton.isEnabled = false
-            startPhoneVerification(fullNumber)
         }
 
         registerButton.setOnClickListener {
@@ -118,18 +110,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun showEmailTab() {
-        emailLoginLayout.visibility = View.VISIBLE
-        phoneLoginLayout.visibility = View.GONE
-        emailTabButton.isEnabled = false
-        phoneTabButton.isEnabled = true
-    }
+    // يحدد هل المدخل يبدو بريد إلكتروني أو رقم جوال، ويحدث الواجهة تبعاً لذلك
+    private fun updateModeUI(identifier: String) {
+        isEmailMode = identifier.contains("@")
 
-    private fun showPhoneTab() {
-        emailLoginLayout.visibility = View.GONE
-        phoneLoginLayout.visibility = View.VISIBLE
-        emailTabButton.isEnabled = true
-        phoneTabButton.isEnabled = false
+        if (isEmailMode) {
+            passwordInput.visibility = View.VISIBLE
+            actionButton.text = getString(R.string.login_button)
+        } else {
+            passwordInput.visibility = View.GONE
+            actionButton.text = getString(R.string.send_otp_button)
+        }
     }
 
     // يحول أي صيغة إدخال (05xxxxxxxx أو 5xxxxxxxx أو +9665xxxxxxxx) لصيغة دولية سعودية موحدة
@@ -163,7 +154,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onVerificationFailed(e: FirebaseException) {
-                    sendOtpButton.isEnabled = true
+                    actionButton.isEnabled = true
                     Toast.makeText(this@LoginActivity, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
                 }
 
@@ -171,7 +162,7 @@ class LoginActivity : AppCompatActivity() {
                     verificationId: String,
                     token: PhoneAuthProvider.ForceResendingToken
                 ) {
-                    sendOtpButton.isEnabled = true
+                    actionButton.isEnabled = true
                     PhoneAuthHolder.resendToken = token
                     PhoneAuthHolder.phoneNumber = phoneNumber
 
