@@ -259,6 +259,8 @@
     <string name="impact_report_share_title">Annual Impact Report</string>
     <string name="impact_report_share_text">📊 This year I donated %1$d times and helped save approximately %2$d lives via Qatrat Amal app! Join and be part of the change 🩸</string>
 
+    <string name="splash_verse_text">"…And whoever saves a life, it is as if he has saved mankind entirely…"</string>
+
     <string-array name="help_case_categories">
         <item>Medical Treatment</item>
         <item>Surgery</item>
