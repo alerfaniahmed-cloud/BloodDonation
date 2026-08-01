@@ -46,6 +46,7 @@
     <string name="register_button">إنشاء حساب جديد</string>
     <string name="login_success">تم تسجيل الدخول بنجاح</string>
 
+    <string name="identifier_hint">البريد الإلكتروني أو رقم الجوال</string>
     <string name="email_tab_button">البريد الإلكتروني</string>
     <string name="phone_tab_button">رقم الجوال</string>
     <string name="phone_number_login_hint">رقم الجوال (مثال: 05xxxxxxxx)</string>
