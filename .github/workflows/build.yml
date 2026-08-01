@@ -27,6 +27,24 @@ jobs:
             gradle wrapper --gradle-version 8.2
           fi
 
+      - name: Ensure Debug Keystore Exists
+        run: |
+          mkdir -p ~/.android
+          if [ ! -f ~/.android/debug.keystore ]; then
+            keytool -genkeypair -v \
+              -keystore ~/.android/debug.keystore \
+              -storepass android \
+              -alias androiddebugkey \
+              -keypass android \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=Android Debug,O=Android,C=US"
+          fi
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
       - name: Print Debug Keystore SHA-1 and SHA-256
         run: |
           echo "===== DEBUG KEYSTORE FINGERPRINTS ====="
@@ -34,21 +52,8 @@ jobs:
             -keystore ~/.android/debug.keystore \
             -alias androiddebugkey \
             -storepass android \
-            -keypass android || echo "Debug keystore not found yet, will be created on first build."
-          echo "========================================"
-
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
-
-      - name: Print Debug Keystore SHA-1 and SHA-256 (after build)
-        run: |
-          echo "===== DEBUG KEYSTORE FINGERPRINTS (POST-BUILD) ====="
-          keytool -list -v \
-            -keystore ~/.android/debug.keystore \
-            -alias androiddebugkey \
-            -storepass android \
             -keypass android
-          echo "======================================================"
+          echo "========================================"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
