@@ -284,4 +284,14 @@
         <item>Medical Tests</item>
         <item>Other</item>
     </string-array>
+
+    <string name="admin_panel_button">🛠️ Manage Requests</string>
+    <string name="admin_requests_title">Manage Requests</string>
+    <string name="admin_city_prefix">City: %1$s</string>
+    <string name="admin_requester_prefix">Requester: %1$s</string>
+    <string name="admin_phone_prefix">Phone: %1$s</string>
+    <string name="confirm_delete_title">Confirm Deletion</string>
+    <string name="confirm_delete_message">Delete this request (%1$s - %2$s)? This cannot be undone.</string>
+    <string name="delete_request_button">Delete</string>
+    <string name="request_deleted">Request deleted</string>
 </resources>
