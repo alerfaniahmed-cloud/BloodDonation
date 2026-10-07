@@ -294,4 +294,11 @@
     <string name="confirm_delete_message">Delete this request (%1$s - %2$s)? This cannot be undone.</string>
     <string name="delete_request_button">Delete</string>
     <string name="request_deleted">Request deleted</string>
+
+    <string name="forgot_password_link">Forgot password?</string>
+    <string name="reset_password_title">Reset Password</string>
+    <string name="reset_password_message">Enter your email and we\'ll send you a password reset link</string>
+    <string name="reset_send_button">Send</string>
+    <string name="reset_email_sent">Password reset link sent to your email</string>
+    <string name="email_required">Please enter your email</string>
 </resources>
