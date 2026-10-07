@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         private const val ELIGIBILITY_DAYS = 56
         private const val MILLIS_PER_DAY = 24L * 60 * 60 * 1000
         private const val REPORT_THRESHOLD = 3
+        private const val ADMIN_PHONE_NUMBER = "+966502027424"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         val circleButton = findViewById<LinearLayout>(R.id.circleButton)
         val campaignsButton = findViewById<LinearLayout>(R.id.campaignsButton)
         val languageButton = findViewById<Button>(R.id.languageButton)
+        val adminButton = findViewById<LinearLayout>(R.id.adminButton)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -132,6 +134,10 @@ class MainActivity : AppCompatActivity() {
 
         hamburgerButton.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        if (auth.currentUser?.phoneNumber == ADMIN_PHONE_NUMBER) {
+            adminButton.visibility = View.VISIBLE
         }
 
         createNotificationChannel()
@@ -192,6 +198,11 @@ class MainActivity : AppCompatActivity() {
         hospitalOffersButton.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, HospitalDonorOffersActivity::class.java))
+        }
+
+        adminButton.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(this, AdminRequestsActivity::class.java))
         }
     }
 
