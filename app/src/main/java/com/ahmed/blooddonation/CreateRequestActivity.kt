@@ -119,7 +119,13 @@ class CreateRequestActivity : AppCompatActivity() {
                     }
             } else {
                 val userId = auth.currentUser?.uid
-                db.collection("users").document(userId ?: "").get()
+
+                if (userId == null) {
+                    Toast.makeText(this, getString(R.string.error_generic, "لم يتم العثور على جلسة دخول صالحة"), Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
+                db.collection("users").document(userId).get()
                     .addOnSuccessListener { userDoc ->
                         val requesterName = userDoc.getString("name") ?: getString(R.string.default_requester_name)
                         val requesterType = userDoc.getString("accountType") ?: "individual"
@@ -132,7 +138,7 @@ class CreateRequestActivity : AppCompatActivity() {
                             "notes" to notes,
                             "requesterName" to requesterName,
                             "timestamp" to System.currentTimeMillis(),
-                            "userId" to (userId ?: ""),
+                            "userId" to userId,
                             "requesterType" to requesterType
                         )
                         if (capturedLat != null && capturedLng != null) {
@@ -149,6 +155,9 @@ class CreateRequestActivity : AppCompatActivity() {
                             .addOnFailureListener { e ->
                                 Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
                             }
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
                     }
             }
         }
