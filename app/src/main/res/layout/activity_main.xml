@@ -427,6 +427,34 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/adminButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/circle_icon_bg"
+                    android:gravity="center"
+                    android:text="🛠️"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/admin_panel_button"
+                    android:textSize="15sp"
+                    android:textColor="#2B2B2B" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
