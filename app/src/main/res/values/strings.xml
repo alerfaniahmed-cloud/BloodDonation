@@ -294,4 +294,11 @@
     <string name="confirm_delete_message">حذف هذا النداء (%1$s - %2$s)؟ لا يمكن التراجع عن هذا الإجراء.</string>
     <string name="delete_request_button">حذف</string>
     <string name="request_deleted">تم حذف النداء</string>
+
+    <string name="forgot_password_link">نسيت كلمة المرور؟</string>
+    <string name="reset_password_title">استرجاع كلمة المرور</string>
+    <string name="reset_password_message">أدخل بريدك الإلكتروني وسنرسل لك رابط لإعادة تعيين كلمة المرور</string>
+    <string name="reset_send_button">إرسال</string>
+    <string name="reset_email_sent">تم إرسال رابط استرجاع كلمة المرور إلى بريدك الإلكتروني</string>
+    <string name="email_required">الرجاء إدخال البريد الإلكتروني</string>
 </resources>
