@@ -136,13 +136,7 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        val currentPhoneNumber = auth.currentUser?.phoneNumber
-        android.widget.Toast.makeText(
-            this,
-            "DEBUG phoneNumber = [$currentPhoneNumber]",
-            android.widget.Toast.LENGTH_LONG
-        ).show()
-        if (currentPhoneNumber == ADMIN_PHONE_NUMBER) {
+        if (auth.currentUser?.phoneNumber == ADMIN_PHONE_NUMBER) {
             adminButton.visibility = View.VISIBLE
         }
 
