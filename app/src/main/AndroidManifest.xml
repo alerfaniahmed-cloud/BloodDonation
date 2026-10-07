@@ -96,6 +96,10 @@
             android:name=".ImpactReportActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".AdminRequestsActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
