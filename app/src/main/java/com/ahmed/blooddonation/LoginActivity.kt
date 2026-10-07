@@ -1,5 +1,6 @@
 package com.ahmed.blooddonation
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -7,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -25,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var identifierInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var actionButton: Button
+    private lateinit var forgotPasswordText: TextView
 
     private var isEmailMode = false
 
@@ -46,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
         identifierInput = findViewById(R.id.identifierInput)
         passwordInput = findViewById(R.id.passwordInput)
         actionButton = findViewById(R.id.actionButton)
+        forgotPasswordText = findViewById(R.id.forgotPasswordText)
 
         val registerButton = findViewById<Button>(R.id.registerButton)
         val languageButton = findViewById<Button>(R.id.languageButton)
@@ -108,6 +112,10 @@ class LoginActivity : AppCompatActivity() {
         registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+
+        forgotPasswordText.setOnClickListener {
+            showForgotPasswordDialog()
+        }
     }
 
     // يحدد هل المدخل يبدو بريد إلكتروني أو رقم جوال، ويحدث الواجهة تبعاً لذلك
@@ -116,11 +124,61 @@ class LoginActivity : AppCompatActivity() {
 
         if (isEmailMode) {
             passwordInput.visibility = View.VISIBLE
+            forgotPasswordText.visibility = View.VISIBLE
             actionButton.text = getString(R.string.login_button)
         } else {
             passwordInput.visibility = View.GONE
+            forgotPasswordText.visibility = View.GONE
             actionButton.text = getString(R.string.send_otp_button)
         }
+    }
+
+    // يعرض مربع حوار لإدخال البريد الإلكتروني وإرسال رابط استرجاع كلمة المرور عبر Firebase
+    private fun showForgotPasswordDialog() {
+        val emailInput = EditText(this)
+        emailInput.hint = getString(R.string.identifier_hint)
+        emailInput.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+
+        val currentTyped = identifierInput.text.toString().trim()
+        if (currentTyped.contains("@")) {
+            emailInput.setText(currentTyped)
+        }
+
+        val container = android.widget.FrameLayout(this)
+        val padding = (16 * resources.displayMetrics.density).toInt()
+        val params = android.widget.FrameLayout.LayoutParams(
+            android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.leftMargin = padding
+        params.rightMargin = padding
+        emailInput.layoutParams = params
+        container.addView(emailInput)
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.reset_password_title)
+            .setMessage(R.string.reset_password_message)
+            .setView(container)
+            .setPositiveButton(R.string.reset_send_button) { _, _ ->
+                val email = emailInput.text.toString().trim()
+                if (email.isEmpty()) {
+                    Toast.makeText(this, getString(R.string.email_required), Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                sendPasswordResetEmail(email)
+            }
+            .setNegativeButton(R.string.cancel_button, null)
+            .show()
+    }
+
+    private fun sendPasswordResetEmail(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                Toast.makeText(this, getString(R.string.reset_email_sent), Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, getString(R.string.error_generic, e.message), Toast.LENGTH_LONG).show()
+            }
     }
 
     // يحول أي صيغة إدخال (05xxxxxxxx أو 5xxxxxxxx أو +9665xxxxxxxx) لصيغة دولية سعودية موحدة
