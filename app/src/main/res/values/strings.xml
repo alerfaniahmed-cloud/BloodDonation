@@ -284,4 +284,14 @@
         <item>فحوصات طبية</item>
         <item>أخرى</item>
     </string-array>
+
+    <string name="admin_panel_button">🛠️ إدارة النداءات</string>
+    <string name="admin_requests_title">إدارة النداءات</string>
+    <string name="admin_city_prefix">المدينة: %1$s</string>
+    <string name="admin_requester_prefix">مقدّم النداء: %1$s</string>
+    <string name="admin_phone_prefix">الجوال: %1$s</string>
+    <string name="confirm_delete_title">تأكيد الحذف</string>
+    <string name="confirm_delete_message">حذف هذا النداء (%1$s - %2$s)؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="delete_request_button">حذف</string>
+    <string name="request_deleted">تم حذف النداء</string>
 </resources>
